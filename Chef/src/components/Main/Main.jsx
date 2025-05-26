@@ -1,17 +1,24 @@
 import React from 'react'
 import './Main.css'
+import ByteBistro from '../ByteBistro/ByteBistro'
+import IngredientsList from '../IngredientsList/IngredientsList'
+import { getRecipeFromGemini} from '../../ai'
 
 export default function Main()
 {
     const [ingredients, setIngredients] = React.useState([])
-    
-    const ingredientsListItems = ingredients.map(ingredient => (
-        <li key={ingredient}>{ingredient}</li>
-    ))
-
+    const [recipe, setRecipe] = React.useState("");
 
 
     
+
+async function getRecipe()
+{
+    if (!ingredients.length) return;
+    const generatedRecipe = await getRecipeFromGemini(ingredients);
+    setRecipe(generatedRecipe);
+
+}
 
 
     function addIngredient(formData){
@@ -32,9 +39,16 @@ export default function Main()
                 <button className='add-ingredients-btn'>Add ingredient</button>
                  
             </form>
-                <ul>
-                    {ingredientsListItems}
-                </ul>
+            {ingredients.length > 0 && 
+                <IngredientsList 
+                ingredients = {ingredients}
+                getRecipe = {getRecipe}
+                />
+                    }
+                    <ByteBistro 
+
+                    recipe = {recipe}
+                    />
 
         </main>
     )

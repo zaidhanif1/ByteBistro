@@ -48,7 +48,42 @@ li
 {
     transform: scale(1.05);
 }
+.add-ingredients-btn:active
+{
+    transform: scale(.95);
+}
 input
 {
     font-family: Inter, sans-serif;
+}
+.generate-recipe-main
+{
+    display: flex;
+    background-color: rgb(243, 243, 243);
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+
+}
+.get-a-recipe-button
+{
+    text-decoration: none;
+    border: none;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-left: 50px;
+    background-color: coral;
+    color: white;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.get-a-recipe-button:hover
+{
+    transform: scale(1.05);
+}
+.get-a-recipe-button:active
+{
+    transform: scale(.95);
 }
