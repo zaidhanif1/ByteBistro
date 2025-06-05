@@ -7,7 +7,12 @@ export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
 
   try {
-    const response = await fetch('http://localhost:8000/recipe', {
+    // Use Netlify Functions for production, localhost for development
+    const apiUrl = window.location.hostname === 'localhost' 
+      ? 'http://localhost:8000/recipe'
+      : '/api/recipe';
+    
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
