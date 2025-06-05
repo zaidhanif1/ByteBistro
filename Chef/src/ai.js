@@ -12,6 +12,9 @@ export async function getRecipeFromGemini(ingredients) {
       ? 'http://localhost:8000/recipe'
       : '/api/recipe';
     
+    console.log('🐛 Debug - Hostname:', window.location.hostname);
+    console.log('🐛 Debug - API URL:', apiUrl);
+    
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {

@@ -16,7 +16,13 @@ const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 // ---------- Express setup ----------
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174'],
+  origin: [
+    'http://localhost:5173', 
+    'http://localhost:5174', 
+    'http://127.0.0.1:5173', 
+    'http://127.0.0.1:5174',
+    'https://bytebistro.netlify.app'
+  ],
   credentials: true
 }));
 app.use(express.json());
