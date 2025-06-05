@@ -1,11 +1,12 @@
 [build]
   command = "npm run build"
-  base = "Chef"
   publish = "dist"
-functions = "netlify/functions"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
+[functions]
+external_node_modules = ["@google/generative-ai"]

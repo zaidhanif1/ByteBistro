@@ -1,5 +1,5 @@
 /**
- * Call the backend API to get a recipe from ingredients
+ * 
  * @param {string[]} ingredients
  * @returns {Promise<string>}
  */
@@ -7,7 +7,6 @@ export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
 
   try {
-    // Use Netlify Functions for production, localhost for development
     const apiUrl = window.location.hostname === 'localhost' 
       ? 'http://localhost:8000/recipe'
       : '/api/recipe';
