@@ -10,7 +10,7 @@ export async function getRecipeFromGemini(ingredients) {
     // Use Netlify Functions for production, localhost for development
     const apiUrl = window.location.hostname === 'localhost' 
       ? 'http://localhost:8000/recipe'
-      : '/api/recipe';
+      : '/api/recipe-cjs';
     
     console.log('🐛 Debug - Hostname:', window.location.hostname);
     console.log('🐛 Debug - API URL:', apiUrl);
