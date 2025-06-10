@@ -1,36 +1,26 @@
 /**
- * 
+ *
  * @param {string[]} ingredients
  * @returns {Promise<string>}
  */
 export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
 
-  try {
-    const apiUrl = window.location.hostname === 'localhost' 
-      ? 'http://localhost:8000/recipe'
-      : '/api/recipe';
-    
-    console.log('🐛 Debug - Hostname:', window.location.hostname);
-    console.log('🐛 Debug - API URL:', apiUrl);
-    
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ingredients }),
-    });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to generate recipe');
+  const res = await fetch ('/api/recipe', {
+    method: 'POST',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify({ingredients})
+  })
+
+
+    if (!res.ok)
+    {
+      const { error } = await res.json()
+      throw new Error(error || 'Failed to fetch recipe')
     }
 
-    const data = await response.json();
-    return data.recipe;
-  } catch (error) {
-    console.error('Error calling recipe API:', error);
-    return "Sorry, I couldn't generate a recipe right now. Please try again later.";
+
+    const { recipe } = await res.json()
+    return recipe
   }
-}
