@@ -9,7 +9,7 @@ export async function getRecipeFromGemini(ingredients) {
 
   const res = await fetch (`${API_BASE}/api/recipe`, {
     method: 'POST',
-    headers: {'Content-type': 'application/json'},
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ingredients})
   })
 

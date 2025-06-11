@@ -32,19 +32,29 @@ async function getRecipe()
     }
 
     return(
+        <>
         <main>
+            <div className='direction-text'>
+            <h1 className='question-header'>What's in your kitchen?</h1>
+            <h3 className='add-ingredients-h3'>Add ingredients below!</h3>
+            </div>
             <form onSubmit = {addIngredient} className="add-ingredient-form">
 
-                <input
+                <input 
+                className='ingredient-input'
                 type="text"
-                placeholder="e.g. oregano" 
+                placeholder="e.g. chicken, rice, tomatoes" 
                 aria-label="Add ingredient" 
                 name='ingredient'
                 />
-                <button className='add-ingredients-btn'>Add ingredient</button>
+                <button className='add-ingredients-btn'>Add</button>
                  
             </form>
-            {ingredients.length > 0 && 
+            
+
+        </main>
+        <div className='ingredients-list-container'>
+        {ingredients.length > 0 && 
                 <IngredientsList 
                 ingredients = {ingredients}
                 getRecipe = {getRecipe}
@@ -53,7 +63,7 @@ async function getRecipe()
                     <ByteBistro 
                     recipe = {recipe}
                     />
-
-        </main>
+                    </div>
+        </>
     )
 }
