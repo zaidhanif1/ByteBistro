@@ -18,8 +18,7 @@ app.use(
           return cb(null, true);                  
         cb(new Error('CORS: origin not allowed → ' + origin));  
       },
-      methods: ['GET', 'POST', 'OPTIONS'],        
-      allowedHeaders: ['Content-Type'],           
+      methods: ['GET', 'POST', 'OPTIONS'],               
     })
   );
   
