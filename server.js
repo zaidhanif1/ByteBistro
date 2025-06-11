@@ -9,7 +9,20 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 const app = express()
 dotenv.config()
-app.use(cors({origin: 'http://localhost:5173/'}))
+const allowed = process.env.ALLOWED_ORIGINS.split(',')
+app.use(
+    cors({
+      origin: (origin, cb) => {
+        if (!origin || allowed.includes(origin))   
+          return cb(null, true);                  
+        cb(new Error('CORS: origin not allowed → ' + origin));  
+      },
+      methods: ['GET', 'POST', 'OPTIONS'],        
+      allowedHeaders: ['Content-Type'],           
+    })
+  );
+  
+
 app.use(express.json())
 
 
@@ -20,7 +33,7 @@ suggests a recipe. Use markdown in the reply.
 `
 
 
-app.post('api/recipe', async (req, res) => {
+app.post('/api/recipe', async (req, res) => {
     const {ingredients} = req.body
     if (!Array.isArray(ingredients) || ingredients.length === 0)
     {
@@ -30,8 +43,8 @@ app.post('api/recipe', async (req, res) => {
 
     try {
         const model = genAI.getGenerativeModel({model : 'gemini-1.5-flash'})
-        const prompt = `${SYSTEM_PROMPT}\n\n Create a recipe using : ${ingredients.join(',')}`
-        const result = await model.generateContent([prompt])
+        const prompt = `${SYSTEM_PROMPT}\n Create a recipe using : ${ingredients.join(',')}`
+        const result = await model.generateContent(prompt)
         const text = result.response.text()
         res.json({ recipe: text.trim() })
     }
@@ -43,7 +56,7 @@ app.post('api/recipe', async (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT
 
 
 app.listen(PORT, () => console.log(`Server connected on port: ${PORT}!`))

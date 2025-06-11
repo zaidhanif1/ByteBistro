@@ -7,7 +7,7 @@ export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
 
 
-  const res = await fetch ('/api/recipe', {
+  const res = await fetch ('http://localhost:8000/api/recipe', {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify({ingredients})

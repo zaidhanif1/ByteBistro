@@ -21,14 +21,19 @@ async function getRecipe()
 }
 
 
-    function addIngredient(formData){
-        const newIngredient = formData.get("ingredient")
-        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+    function addIngredient(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const newIngredient = formData.get("ingredient")?.trim();
+        if (newIngredient){
+            setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+        }
+        e.target.reset();
     }
 
     return(
         <main>
-            <form action = {addIngredient} className="add-ingredient-form">
+            <form onSubmit = {addIngredient} className="add-ingredient-form">
 
                 <input
                 type="text"
@@ -46,7 +51,6 @@ async function getRecipe()
                 />
                     }
                     <ByteBistro 
-
                     recipe = {recipe}
                     />
 
