@@ -15,7 +15,8 @@ app.use(
     cors({
       origin: (origin, cb) => {
         if (!origin || allowed.includes(origin))   
-          return cb(null, true);                  
+          return cb(null, true);   
+        console.log('DENIED', origin)               
         cb(new Error('CORS: origin not allowed → ' + origin));  
       },
       methods: ['GET', 'POST', 'OPTIONS'],               
