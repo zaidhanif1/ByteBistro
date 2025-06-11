@@ -9,7 +9,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 const app = express()
 dotenv.config()
-const allowed = process.env.ALLOWED_ORIGINS.split(',')
+const allowed = process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
+console.log('CORS whitelist', allowed)
 app.use(
     cors({
       origin: (origin, cb) => {
@@ -56,7 +57,7 @@ app.post('/api/recipe', async (req, res) => {
 })
 
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 
 
 app.listen(PORT, () => console.log(`Server connected on port: ${PORT}!`))
