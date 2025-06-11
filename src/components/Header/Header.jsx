@@ -13,7 +13,7 @@ export default function Header()
     <header className="header">
       
         <a href="/" onClick={prevent} className="logo-link">
-        <img src={chef} alt="AI Robot Image" />
+        <img src={chef} className = "bytebistro-logo"alt="AI Robot Image" />
         <h1>ByteBistro</h1>
         </a>
       

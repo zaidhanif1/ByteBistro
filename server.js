@@ -47,7 +47,7 @@ app.post('/api/recipe', async (req, res) => {
         const prompt = `${SYSTEM_PROMPT}\n Create a recipe using : ${ingredients.join(',')}`
         const result = await model.generateContent(prompt)
         const text = result.response.text()
-        res.json({ recipe: text.trim() })
+        res.json({ recipe: text.trim()})  
     }
     catch (error)
     {

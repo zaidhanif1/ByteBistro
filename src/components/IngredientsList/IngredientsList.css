@@ -2,15 +2,16 @@
 {
     background-color: #ffffff ;
 }
+
 .ingredients-list
 {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: left;
-
 }
+
 .get-a-recipe-button
 {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-decoration: none;
     border: none;
     font-family: Inter, sans-serif;
@@ -35,26 +36,24 @@
 
 .ingredients-on-hand-h1
 {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 .ingredientslist-section
 {
     width: 100%;
-    margin: auto;
+    margin: 20px auto auto auto;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    padding: 20px
-
 }
 ol
 {
+
     list-style-type: none;
-    
+
 }
 .generate-recipe-h3
 {
-    font-size: 3rem;
+    font-size: 1.7rem;
 }
 
 .generate-recipe-main
@@ -69,5 +68,24 @@ ol
 }
 .generate-recipe-p
 {
-    font-size: 1.2rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px)
+{
+.generate-recipe-p
+    {
+        font-size: .8rem;
+    }
+ 
+    .generate-recipe-h3
+{
+    font-size: 1rem;
+}
+.get-a-recipe-button
+{
+    font-size: .7rem;
+}
+
+
 }

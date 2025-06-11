@@ -22,11 +22,11 @@ main{
 }
 .question-header
 {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .add-ingredients-h3
 {
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 .ingredient-input
 {
@@ -46,7 +46,7 @@ main{
 }
 .ingredient-input::placeholder
 {
-    font-size: 1.18rem;
+    font-size: 1.rem;
 }
 
 .add-ingredient-form > button::before
@@ -61,7 +61,7 @@ li
 .add-ingredients-btn
 {
     font-family: Inter, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border-radius: 6px;
     border: none;
     background-color: #E76F51;
