@@ -15,7 +15,7 @@
 .byte-bistro-h1
 {
     font-size: 1.8rem;
-    text-align: left;
+
     
 }
 
@@ -32,11 +32,11 @@
     }
     #suggested-recipe-container h1
     {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
     }
     #suggested-recipe-container h2 
     {
-        font-size: 1.3rem
+        font-size: .9rem
     }
     #suggested-recipe-container p, li, h3
     {
