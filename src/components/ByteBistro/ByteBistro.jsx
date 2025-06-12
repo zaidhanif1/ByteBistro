@@ -4,8 +4,9 @@ import './ByteBistro.css'
 export default function ByteBistro(props) {
 return (
 props.recipe ? <section className="recipe-output">
-    <h1 className='byte-bistro-h1'>ByteBistro Recommends:</h1>
-    <div className="suggested-recipe-container" aria-live="polite">
+    
+    <div id="suggested-recipe-container" aria-live="polite">
+      <h1 className='byte-bistro-h1'>ByteBistro Recommends:</h1>
       <ReactMarkdown>{props.recipe}</ReactMarkdown>
     </div>
   </section> : null 

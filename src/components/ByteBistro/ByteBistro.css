@@ -1,8 +1,46 @@
-.suggested-recipe-container
+#suggested-recipe-container
 {
     font-family: Inter, sans-serif;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    text-align: left;
+    background-color: white;
+    width: 600px;
+    margin: 100px auto auto auto;
+    padding: 20px;
+    border-radius: 20px;
+    
 }
 .byte-bistro-h1
 {
-    font-size: 30px;
+    font-size: 1.8rem;
+    text-align: left;
+    
+}
+
+
+@media (max-width: 768px)
+{
+ .byte-bistro-h1
+    {
+        font-size: 1rem;
+    }
+    #suggested-recipe-container
+    {
+        width: 300px;
+    }
+    #suggested-recipe-container h1
+    {
+        font-size: 1.4rem;
+    }
+    #suggested-recipe-container h2 
+    {
+        font-size: 1.3rem
+    }
+    #suggested-recipe-container p, li, h3
+    {
+        font-size: .7rem
+    }
+    
 }

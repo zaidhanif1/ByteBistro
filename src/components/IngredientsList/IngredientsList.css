@@ -1,12 +1,17 @@
 .generate-recipe-main
 {
-    background-color: #ffffff ;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: auto;     
 }
 
 .ingredients-list
 {
     font-size: 1rem;
-    text-align: left;
 }
 
 .get-a-recipe-button
@@ -18,12 +23,13 @@
     font-weight: 500;
     padding: 15px 20px;
     border-radius: 10px;
-    margin-left: 50px;
     background-color: coral;
     color: white;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
+
+
 .get-a-recipe-button:hover
 {
     transform: scale(1.05);
@@ -33,10 +39,21 @@
     transform: scale(.95);
 }
 
-
+.ingredients-on-hand-container
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto auto auto;
+    padding: 20px;
+}
 .ingredients-on-hand-h1
 {
     font-size: 1.5rem;
+    margin: auto;
 }
 .ingredientslist-section
 {
@@ -49,42 +66,56 @@ ol
 {
 
     list-style-type: none;
-
-}
-.generate-recipe-h3
-{
-    font-size: 1.7rem;
-}
-
-.generate-recipe-main
-{
+    padding-inline-start: 0px;
+    display: inline-block;
     text-align: center;
-    width: 90%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    margin: auto auto 200px auto;
- 
+
 }
-.generate-recipe-p
+
+.list-element
 {
-    font-size: 1rem;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border: 2.5px solid #4d8853;
+  border-radius: 10px;
+  display: inline-block;
+  color: black;
+  font-weight: 500;
+  transition: transform 0.3s ease;
 }
+.list-element:hover
+{
+    transform: translateY(-5px);
+}
+
+
 
 @media (max-width: 768px)
 {
-.generate-recipe-p
+    .generate-recipe-main
     {
-        font-size: .8rem;
+        padding: 20px;
+        margin: auto;
     }
- 
-    .generate-recipe-h3
-{
-    font-size: 1rem;
-}
+
 .get-a-recipe-button
 {
+    font-size: .5rem;
+
+}
+.ingredients-on-hand-container
+{
+    max-width: 300px;
+}
+.list-element
+{
     font-size: .7rem;
+    width: fit-content;
+
+}
+.ingredients-on-hand-h1
+{
+    font-size: 1rem;
 }
 
 
