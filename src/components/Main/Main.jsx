@@ -8,15 +8,20 @@ export default function Main()
 {
     const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState("");
+ 
 
 
     
 
-async function getRecipe()
+async function getRecipe(e)
 {
+   
     if (!ingredients.length) return;
     const generatedRecipe = await getRecipeFromGemini(ingredients);
     setRecipe(generatedRecipe);
+     e.preventDefault()
+    const recipeContainer = document.getElementById('suggested-recipe-container')
+    recipeContainer.scrollIntoView({behavior: 'smooth'})
 
 }
 
@@ -30,6 +35,9 @@ async function getRecipe()
         }
         e.target.reset();
     }
+
+
+
 
     return(
         <>
@@ -53,17 +61,17 @@ async function getRecipe()
             
 
         </main>
-        <div className='ingredients-list-container'>
+        <div>
         {ingredients.length > 0 && 
-                <IngredientsList 
-                ingredients = {ingredients}
-                getRecipe = {getRecipe}
-                />
-                    }
-                    <ByteBistro 
-                    recipe = {recipe}
-                    />
-                    </div>
+            <IngredientsList 
+            ingredients = {ingredients}
+            getRecipe = {getRecipe}
+
+            />}
+        </div>
+            <ByteBistro 
+            recipe = {recipe}
+            />
         </>
     )
 }
