@@ -23,7 +23,7 @@
     font-weight: 500;
     padding: 15px 20px;
     border-radius: 10px;
-    background-color: coral;
+    background-color: #E76F51;
     color: white;
     transition: transform 0.3s ease;
     cursor: pointer;
@@ -88,7 +88,26 @@ ol
     transform: translateY(-5px);
 }
 
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ffffff;
+    border-bottom-color: #E76F51;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-left: 10px;
+    }
 
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
 
 @media (max-width: 768px)
 {
@@ -105,7 +124,7 @@ ol
 }
 .ingredients-on-hand-container
 {
-    max-width: 300px;
+    max-width: 270px;
 }
 .list-element
 {
@@ -116,6 +135,11 @@ ol
 .ingredients-on-hand-h1
 {
     font-size: 1rem;
+}
+.loader
+{
+    width: 30px;
+    height: 30px;
 }
 
 
