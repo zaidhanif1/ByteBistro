@@ -8,6 +8,7 @@ export default function Main()
 {
     const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
  
 
 
@@ -15,15 +16,21 @@ export default function Main()
 
 async function getRecipe(e)
 {
-   
+    setLoading(true);
     if (!ingredients.length) return;
     const generatedRecipe = await getRecipeFromGemini(ingredients);
     setRecipe(generatedRecipe);
-     e.preventDefault()
-    const recipeContainer = document.getElementById('suggested-recipe-container')
-    recipeContainer.scrollIntoView({behavior: 'smooth'})
-
+    setLoading(false);
 }
+
+React.useEffect(() => {
+    if (recipe)
+    {
+        const recipeContainer = document.getElementById('suggested-recipe-container')
+        recipeContainer.scrollIntoView({behavior: 'smooth'})
+    }
+
+}, [recipe])
 
 
     function addIngredient(e){
@@ -64,12 +71,14 @@ async function getRecipe(e)
         <div>
         {ingredients.length > 0 && 
             <IngredientsList 
+            loading = {loading}
             ingredients = {ingredients}
             getRecipe = {getRecipe}
 
             />}
         </div>
             <ByteBistro 
+
             recipe = {recipe}
             />
         </>

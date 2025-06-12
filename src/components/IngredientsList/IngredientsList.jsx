@@ -80,6 +80,7 @@ function getIcon(ingredient)
                     {props.ingredients.length > 2  &&
                     <div className='generate-recipe-main'>
                         <button className='get-a-recipe-button' onClick={props.getRecipe}>Get a recipe!</button>    
+                        {props.loading && <span className='loader'></span>}
                     </div>
                     }
 
