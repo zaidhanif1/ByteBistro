@@ -1,4 +1,5 @@
 import './IngredientsList.css'
+import Clipboard from '../../assets/Clipboard.png'
 export default function IngredientsList(props)
 
 {
@@ -7,7 +8,9 @@ const ingredientIcons = {
     beef: "🥩",
     pork: "🥓",
     fish: "🐟",
-    rice: "🌾",
+    rice: "🍚",
+    noodles: "🍜",
+    bread: "🍞",
     pasta: "🍝",
     tomato: "🍅",
     milk: "🥛",
@@ -35,7 +38,6 @@ const ingredientIcons = {
     lemon: "🍋",
     orange: "🍊",
     avocado: "🥑",
-    bread: "🍞",
     flour: "🌾",
     cereal: "🥣",
     icecream: "🍨",
@@ -48,6 +50,8 @@ const ingredientIcons = {
     steak: "🥩",
     default: "🥘",
 };
+
+
 
 function getIcon(ingredient)
 {
@@ -71,13 +75,27 @@ function getIcon(ingredient)
         </div>
     })
 
+
+
     return(
         
             <section className='ingredientslist-section'>
-                <div className='ingredients-on-hand-container'>
-                    <h1 className='ingredients-on-hand-h1'>Ingredients on hand:</h1>
-                    <ol className="ingredients-list" aria-live="polite">{listItems}</ol>
 
+                
+                {props.ingredients.length === 0 ? (<div className='no-ingredients-yet'>
+                    <img src={Clipboard} alt="" />
+                    <h1 className='no-ingredients-yet-h1'>No ingredients yet</h1>
+                    <p>Add some ingredients to begin!
+
+                    </p>
+                </div>) : (
+                <div className='ingredients-on-hand-container'>
+                    <div className='ingredients-on-hand-header'>
+                    <h1 className='ingredients-on-hand-h1'>Ingredients on hand:</h1>
+                    <button className='delete-all-ingredients-btn' onClick={props.deleteAllIngredients}>Delete all 🗑️</button>
+
+                    </div>
+                    <ol className="ingredients-list" aria-live="polite">{listItems}</ol>
                     {props.ingredients.length > 2  &&
                     <div className='generate-recipe-main'>
                         <button className='get-a-recipe-button' onClick={props.getRecipe}>Get a recipe!</button>    
@@ -86,7 +104,7 @@ function getIcon(ingredient)
                     }
 
                 </div>
-                    
+                    )}
                     
                     </section>
 

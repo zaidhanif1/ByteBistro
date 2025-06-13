@@ -47,6 +47,9 @@ React.useEffect(() => {
         setIngredients(ingredients.filter((_, i) => i !== indexToDelete))
     }
 
+    const deleteAllIngredients = () => {
+        setIngredients([])
+    }
     return(
         <>
         <main>
@@ -70,17 +73,17 @@ React.useEffect(() => {
 
         </main>
         <div>
-        {ingredients.length > 0 && 
             <IngredientsList 
             loading = {loading}
             ingredients = {ingredients}
             getRecipe = {getRecipe}
             setIngredients = {setIngredients}
             deleteIngredient = {deleteIngredient}
-            />}
+            deleteAllIngredients = {deleteAllIngredients}
+            />
         </div>
-            <ByteBistro 
-
+            <ByteBistro     
+            ingredients = {ingredients}
             recipe = {recipe}
             />
         </>
