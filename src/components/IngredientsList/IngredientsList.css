@@ -71,21 +71,41 @@ ol
     text-align: center;
 
 }
-
-.list-element
+.specific-ingredient
 {
-  padding: 10px 20px;
-  background-color: #ffffff;
-  border: 2.5px solid #4d8853;
-  border-radius: 10px;
-  display: inline-block;
-  color: black;
-  font-weight: 500;
-  transition: transform 0.3s ease;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #ffffff;
+    border: 2.5px solid #4d8853;
+    border-radius: 10px;
+    display: inline-block;
+    color: black;
+    font-weight: 500;
+    transition: transform 0.3s ease; 
+    
 }
-.list-element:hover
+
+.specific-ingredient:hover
 {
     transform: translateY(-5px);
+}
+.specific-ingredient .delete-ingredient-btn
+{
+    opacity: 0;
+    visibility: hidden;
+    border-style: none;
+    color: red;
+    font-size: 1rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    
+}
+.specific-ingredient:hover .delete-ingredient-btn
+{
+    opacity: 1;
+    visibility: visible;
+    border: 1px solid red;
+    border-radius: 5px;
+    
 }
 
 .loader {
@@ -141,6 +161,7 @@ ol
     width: 30px;
     height: 30px;
 }
+
 
 
 }

@@ -43,8 +43,9 @@ React.useEffect(() => {
         e.target.reset();
     }
 
-
-
+    const deleteIngredient = (indexToDelete) => {
+        setIngredients(ingredients.filter((_, i) => i !== indexToDelete))
+    }
 
     return(
         <>
@@ -74,7 +75,8 @@ React.useEffect(() => {
             loading = {loading}
             ingredients = {ingredients}
             getRecipe = {getRecipe}
-
+            setIngredients = {setIngredients}
+            deleteIngredient = {deleteIngredient}
             />}
         </div>
             <ByteBistro 
