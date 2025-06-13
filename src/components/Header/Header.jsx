@@ -1,4 +1,4 @@
-import chef from "../../assets/ChefGPT-transparent.png"
+import chef from "../../assets/ByteBistro.png"
 import './Header.css'
 
 export default function Header()

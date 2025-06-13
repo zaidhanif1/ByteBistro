@@ -63,12 +63,13 @@ function getIcon(ingredient)
 }
 
     const listItems = props.ingredients.map((ingredient, i) => {
-    return <li key={i} className='list-element'> {getIcon(ingredient)} {ingredient}</li>
+    return <div className = 'specific-ingredient' key={i}>
+        <li  className='list-element'>
+             {getIcon(ingredient)} {ingredient} <button className = "delete-ingredient-btn" onClick={()=> props.deleteIngredient(i)}>x</button>
+        
+        </li>
+        </div>
     })
-
-   
-
-
 
     return(
         
