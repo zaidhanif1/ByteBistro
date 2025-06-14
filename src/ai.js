@@ -5,7 +5,7 @@
  */
 export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
-  const API_BASE = import.meta.env.MODE==='development' ? 'http://localhost:8000' : 'bytebistro-production.up.railway.app';
+  const API_BASE = import.meta.env.MODE==='development' ? 'http://localhost:8000' : 'https://bytebistro-production.up.railway.app/';
 
   const res = await fetch (`${API_BASE}/api/recipe`, {
     method: 'POST',
