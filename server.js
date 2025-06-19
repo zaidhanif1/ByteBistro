@@ -11,11 +11,10 @@ const app = express()
 dotenv.config()
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
 console.log('CORS whitelist', allowed)
-app.use(
-    cors({
+app.use(cors({
       origin: (origin, callBack) => {
-        if (!origin || allowed.includes(origin))   
-          return callBack(null, true);   
+        if (!origin || allowed.includes(origin))   return callBack(null, true); 
+           
         console.log('DENIED', origin)    
         const corsError = new Error("CORS: origin not allowed: " + origin) 
         callBack(corsError, false)          
@@ -30,7 +29,7 @@ app.use(express.json())
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 const SYSTEM_PROMPT = 
-`You are ByteBistro, a witty culinary assistant for developers.
+`You are ByteBistro, a witty culinary assistant.
 Given a list of ingredients, suggest a single, creative recipe.
 Make it fun, slightly nerdy, and format the reply using markdown.
 Include a title, ingredient list, and step-by-step instructions.`
