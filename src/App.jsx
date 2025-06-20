@@ -14,7 +14,7 @@ export default function App()
       <Header/>
       <Routes>
         <Route path='/welcome' element = {<Welcome/>}></Route>
-        <Route path='/main' element={<Main />} />
+        <Route path='/' element={<Main />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
     </div>
