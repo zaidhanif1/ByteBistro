@@ -63,7 +63,10 @@ app.post('/api/recipe', async (req, res) => {
     }
 })
 
+app.post('/signup', (req, res) =>{
+const { email, password } = req.body
 
+})
 const PORT = process.env.PORT || 8000
 
 
