@@ -1,0 +1,12 @@
+.signup-page
+{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    width: 600px;
+    margin: auto;
+    border-radius: 10px;
+}

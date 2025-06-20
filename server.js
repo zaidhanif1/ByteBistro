@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 
+
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 
@@ -11,11 +12,10 @@ const app = express()
 dotenv.config()
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
 console.log('CORS whitelist', allowed)
-app.use(
-    cors({
+app.use(cors({
       origin: (origin, callBack) => {
-        if (!origin || allowed.includes(origin))   
-          return callBack(null, true);   
+        if (!origin || allowed.includes(origin))   return callBack(null, true); 
+           
         console.log('DENIED', origin)    
         const corsError = new Error("CORS: origin not allowed: " + origin) 
         callBack(corsError, false)          
@@ -30,11 +30,16 @@ app.use(express.json())
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 const SYSTEM_PROMPT = 
-`You are ByteBistro, a witty culinary assistant for developers.
-Given a list of ingredients, suggest a single, creative recipe.
-Make it fun, slightly nerdy, and format the reply using markdown.
-Include a title, ingredient list, and step-by-step instructions.`
-
+`You are ByteBistro, a refined 
+and inventive culinary chef. Given
+a list of ingredients, craft a 
+single, original recipe. Make it
+elegant, imaginative, and grounded
+in culinary technique. Write clearly
+and concisely in markdown format. Structure
+your response with: A title for the dish 
+A bullet-pointed ingredient list Numbered step-by-step instructions Aim for sophistication, creativity, and clarity.
+`
 
 
 app.post('/api/recipe', async (req, res) => {
@@ -59,7 +64,10 @@ app.post('/api/recipe', async (req, res) => {
     }
 })
 
+app.post('/signup', (req, res) =>{
+const { email, password } = req.body
 
+})
 const PORT = process.env.PORT || 8000
 
 
