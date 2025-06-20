@@ -6,10 +6,11 @@ export default function Signup()
         <div className='signup-page'>
         <h1>Sign up below</h1>
         <form className='signup-form'>
-        
-        <input type="email"  />
-        <input type="password"  />
-        <button onClick='/'>Sign up!</button>
+        <div className='inputs'>
+        <input placeholder = 'Email'className='email-inp' type="email"  />
+        <input placeholder = 'Password'className='pswd-inp' type="password"  />
+        </div>
+        <button className='sign-up-btn'>Sign up!</button>
         </form>
 
         </div>

@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
 
-    align-items: center;
+  
 
     padding: 20px;
     margin: 20px 0px auto 0px;
@@ -13,6 +13,7 @@
     width: 600px;
     height: 70vh;
 }
+
 
 .welcome-h1
 {
@@ -26,23 +27,33 @@
 
 .buttons
 {
-    display: flex;
+    display: block;
+    
 }
-.buttons > button
+
+.signup-btn, .login-btn
 {
+    text-decoration: none;
+    display: block;       
+    
     padding: 10px;
+    margin: 5px;
     border-radius: 5px;
+
     border-style: none;
     color: white;
     background-color: #E76F51;
-    margin: 5px;
+
     transition: transform 0.3s ease;
+
 }
-.buttons > button:hover
+.signup-btn:hover, .login-btn:hover
 {
     transform: scale(1.05);
+
 }
-.buttons > button:active
+.signup-btn:active, .login-btn:active
 {
         transform: scale(.95);
+
 }
