@@ -1,8 +1,7 @@
 .header
 {
     display: flex;
-    align-items: center;
-    justify-content: center;
+
     font-weight: 400;
     font-size: 1rem;
     box-shadow: 0 4px 6px #E76F51;

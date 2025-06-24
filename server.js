@@ -35,10 +35,12 @@ and inventive culinary chef. Given
 a list of ingredients, craft a 
 single, original recipe. Make it
 elegant, imaginative, and grounded
-in culinary technique. Write clearly
-and concisely in markdown format. Structure
-your response with: A title for the dish 
-A bullet-pointed ingredient list Numbered step-by-step instructions Aim for sophistication, creativity, and clarity.
+in culinary technique. Only use the ingredients 
+provided. If you feel an additional ingredient
+could work well with provided ingredients, be sure to mention
+it is optional. Write clearly
+and concisely in markdown format. 
+
 `
 
 

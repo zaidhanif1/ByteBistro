@@ -2,6 +2,11 @@ import './Signup.css'
 
 export default function Signup()
 {
+
+    const prevent = (e) => {
+        e.preventDefault()
+    }
+    
     return (
         <div className='signup-page'>
         <h1>Sign up below</h1>
@@ -10,7 +15,7 @@ export default function Signup()
         <input placeholder = 'Email'className='email-inp' type="email"  />
         <input placeholder = 'Password'className='pswd-inp' type="password"  />
         </div>
-        <button className='sign-up-btn'>Sign up!</button>
+        <button className='sign-up-btn' onClick={prevent}>Sign up!</button>
         </form>
 
         </div>

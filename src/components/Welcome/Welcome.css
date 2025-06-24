@@ -57,3 +57,10 @@
         transform: scale(.95);
 
 }
+@media (max-width: 768px)
+{
+    .welcome-page
+    {
+        width: 300px;
+    }
+}

@@ -96,7 +96,7 @@ function getIcon(ingredient)
 
                     </div>
                     <ol className="ingredients-list" aria-live="polite">{listItems}</ol>
-                    {props.ingredients.length > 2  &&
+                    {props.ingredients.length > 1  &&
                     <div className='generate-recipe-main'>
                         <button className='get-a-recipe-button' onClick={props.getRecipe}>Get a recipe!</button>    
                         {props.loading && <span className='loader'></span>}
