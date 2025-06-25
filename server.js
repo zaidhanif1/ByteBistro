@@ -1,15 +1,19 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
-
-
+import { Pool } from 'pg'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 
-
-
-const app = express()
 dotenv.config()
+const app = express()
+app.use(express.json())
+const pool = new Pool
+({
+  connectionString: process.env.DATABASE_URL,
+})
+
+
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
 console.log('CORS whitelist', allowed)
 app.use(cors({
@@ -25,9 +29,6 @@ app.use(cors({
   );
   
 
-app.use(express.json())
-
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 const SYSTEM_PROMPT = 
 `You are ByteBistro, a refined 
@@ -39,9 +40,7 @@ in culinary technique. Only use the ingredients
 provided. If you feel an additional ingredient
 could work well with provided ingredients, be sure to mention
 it is optional. Write clearly
-and concisely in markdown format. 
-
-`
+and concisely in markdown format. `
 
 
 app.post('/api/recipe', async (req, res) => {
@@ -66,10 +65,29 @@ app.post('/api/recipe', async (req, res) => {
     }
 })
 
-app.post('/signup', (req, res) =>{
+app.post('/api/signup', async (req, res) =>{
 const { email, password } = req.body
+try{
+  const result = await pool.query(
+    'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id',
+    [email, password]
+  )
+  res.status(201).json({ message: 'User created', userId: result.rows[0].id })
+}
+catch (error) {
+  console.error(error);
+  if (error.code === '23505')
+  {
+    res.status(409).json({ error: 'Email already in use' });
+    
+  } else {
+    res.status(500).json({ error: error.message || "Something went wrong. "})
+  }
+}
 
 })
+
+
 const PORT = process.env.PORT || 8000
 
 
