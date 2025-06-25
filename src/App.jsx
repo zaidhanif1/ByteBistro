@@ -13,9 +13,9 @@ export default function App()
     <div>
       <Header/>
       <Routes>
-        <Route path='/welcome' element = {<Welcome/>}></Route>
+        <Route path='/api/welcome' element = {<Welcome/>}></Route>
         <Route path='/' element={<Main />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/api/signup' element={<Signup />} />
       </Routes>
     </div>
   )
