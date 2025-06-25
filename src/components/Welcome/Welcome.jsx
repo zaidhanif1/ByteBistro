@@ -16,7 +16,7 @@ export default function Welcome()
             
         
 
-        <Link to='/signup' style={{textDecoration: 'none'}}>
+        <Link to='/api/signup' style={{textDecoration: 'none'}}>
         <button className='signup-btn'>Sign up</button>
         </Link>
         <button className='login-btn'>Login</button>
