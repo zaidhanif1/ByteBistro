@@ -11,6 +11,9 @@ app.use(express.json())
 const pool = new Pool
 ({
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  }
 })
 
 
@@ -88,7 +91,7 @@ catch (error) {
 })
 
 app.post('/api/login', async (req, res) => {
-  const [logEmail, logPass] = req.body
+  const {logEmail, logPass} = req.body
   try {
     const result = await pool.query(
       'SELECT * from users WHERE email = $1', 
