@@ -9,15 +9,15 @@ export default function Signup()
     const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
+        const API_BASE = import.meta.env.MODE === 'development' ? 'http://localhost:8000' : "https://bytebistro-production.up.railway.app";
         e.preventDefault();
-        const res = await fetch ('http://localhost:8000/api/signup', {
+        const res = await fetch (`${API_BASE}/api/signup`, {
         method: 'POST', 
         headers: 
         {
             "Content-Type": 'application/json'
         },
         body: JSON.stringify({email, password})
-
                 
     });
         const data = await res.json();
@@ -31,7 +31,7 @@ export default function Signup()
 <div className='signup-page'>
     <h1 className='signup-h1'>Sign up below</h1>
         <form className='signup-form' onSubmit={handleSubmit}>
-        <div className='inputs'>
+        <div className='signup-inputs-container'>
             <input 
             placeholder = 'Email'
             className='email-inp' 

@@ -12,7 +12,7 @@ export default function Header()
 
     return(
     <header className="header">
-      <Link to='/api/welcome' style={{ textDecoration: 'none', color: 'inherit'}} className="logo-link">
+      <Link to='/welcome' style={{ textDecoration: 'none', color: 'inherit'}} className="logo-link">
 
         <img src={chef} className = "bytebistro-logo"alt="AI Robot Image" />
         <h1>ByteBistro</h1>

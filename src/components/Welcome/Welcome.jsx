@@ -16,10 +16,12 @@ export default function Welcome()
             
         
 
-        <Link to='/api/signup' style={{textDecoration: 'none'}}>
+        <Link to='/signup' style={{textDecoration: 'none'}}>
         <button className='signup-btn'>Sign up</button>
         </Link>
+        <Link to='/login' style={{textDecoration: 'none'}}>
         <button className='login-btn'>Login</button>
+        </Link>
         </div>
         </div>
     )

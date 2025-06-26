@@ -87,6 +87,32 @@ catch (error) {
 
 })
 
+app.post('/api/login', async (req, res) => {
+  const [logEmail, logPass] = req.body
+  try {
+    const result = await pool.query(
+      'SELECT * from users WHERE email = $1', 
+      [logEmail]
+    )
+    const user = result.rows[0];
+
+    if(!user)
+    {
+      return res.status(400).json({error : 'Invalid email or password'})
+    }
+    if (user.password_hash !== logPass)
+    {
+      return res.status(400).json({error: "Invalid email or password"})
+    }
+
+    res.status(200).json({message: "Login Successful", user: user.id})
+  } catch(error)
+  {
+    console.error("Error is " + error);
+    res.status(500).json({error: "Something went wrong, please try again."})
+  }
+})
+
 
 const PORT = process.env.PORT || 8000
 

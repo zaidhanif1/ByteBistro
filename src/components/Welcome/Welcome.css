@@ -11,7 +11,7 @@
     border-radius: 20px;
     background-color: white;
     width: 600px;
-    height: 70vh;
+    height: fit-content;
 }
 
 .welcome-txt-p
