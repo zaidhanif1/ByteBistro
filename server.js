@@ -6,6 +6,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 
 dotenv.config()
+
 const app = express()
 app.use(express.json())
 const pool = new Pool
@@ -18,7 +19,6 @@ const pool = new Pool
 
 
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
-console.log('CORS whitelist', allowed)
 app.use(cors({
       origin: (origin, callBack) => {
         if (!origin || allowed.includes(origin))   return callBack(null, true); 
@@ -68,9 +68,17 @@ app.post('/api/recipe', async (req, res) => {
     }
 })
 
-app.post('/api/signup', async (req, res) =>{
+app.post('/api/signup', async (req, res) => {
 const { email, password } = req.body
+
 try{
+  const existingUser = await pool.query(
+    'SELECT id FROM users WHERE email = $1', 
+    [email]
+  );
+  if (existingUser.rows.length > 0) {
+  return res.status(409).json({ error: 'Email already in use' });
+}
   const result = await pool.query(
     'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id',
     [email, password]
@@ -92,26 +100,26 @@ catch (error) {
 
 app.post('/api/login', async (req, res) => {
   const {logEmail, logPass} = req.body
+
   try {
     const result = await pool.query(
       'SELECT * from users WHERE email = $1', 
       [logEmail]
     )
     const user = result.rows[0];
+    console.log(user)
 
-    if(!user)
+    if(!user || user.password_hash !== logPass)
     {
       return res.status(400).json({error : 'Invalid email or password'})
     }
-    if (user.password_hash !== logPass)
-    {
-      return res.status(400).json({error: "Invalid email or password"})
-    }
+
+console.log("Login attempt:", logEmail, logPass);
+console.log("User found in DB:", user);
 
     res.status(200).json({message: "Login Successful", user: user.id})
   } catch(error)
   {
-    console.error("Error is " + error);
     res.status(500).json({error: "Something went wrong, please try again."})
   }
 })

@@ -9,23 +9,37 @@ export default function Signup()
     const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
-        const API_BASE = import.meta.env.MODE === 'development' ? 'http://localhost:8000' : "https://bytebistro-production.up.railway.app";
-        e.preventDefault();
+        e.preventDefault()
+        
+        const form = e.target
+
+        const trimmedEmail = email?.trim()
+        const trimmedPassword = password?.trim()
+
+        
+        const API_BASE = import.meta.env.MODE === 'development' 
+        ? 'http://localhost:8000' 
+        : "https://bytebistro-production.up.railway.app";
+
+        
         const res = await fetch (`${API_BASE}/api/signup`, {
         method: 'POST', 
-        headers: 
-        {
+        headers: {
             "Content-Type": 'application/json'
         },
-        body: JSON.stringify({email, password})
-                
+
+        body: JSON.stringify({email: trimmedEmail, password: trimmedPassword})         
     });
+
         const data = await res.json();
-        console.log(data)
+        
+        form.reset()
+        setEmail('')
+        setPassword('')
     }
 
 
-
+   
 
     return (
 <div className='signup-page'>
@@ -33,6 +47,7 @@ export default function Signup()
         <form className='signup-form' onSubmit={handleSubmit}>
         <div className='signup-inputs-container'>
             <input 
+            name = 'email'
             placeholder = 'Email'
             className='email-inp' 
             type="email"
@@ -41,6 +56,7 @@ export default function Signup()
             />
 
             <input 
+            name='password'
             placeholder = 'Password'
             className='pswd-inp' 
             type="password" 

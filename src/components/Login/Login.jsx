@@ -9,18 +9,30 @@ export default function Login() {
   
 
   const handleLogin = async (e) => {
-        const API_BASE = import.meta.env.MODE === 'development' ? 'http://localhost:8000' : "https://bytebistro-production.up.railway.app";
-      e.preventDefault()
+    e.preventDefault()
+
+    const form = e.target
+
+    const trimmedLogEmail = logEmail?.trim()
+    const trimmedLogPass = logPass?.trim()
+
+        const API_BASE = import.meta.env.MODE === 'development' 
+        ? 'http://localhost:8000' 
+        : "https://bytebistro-production.up.railway.app";
+      
       const res = await fetch(`${API_BASE}/api/login`, {
         method: 'POST', 
         headers:
         {
-          'Content-type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({logEmail, logPass})
       });
       const data = await res.json();
       console.log(data)
+      form.reset()
+      setLogEmail('')
+      setLogPass('')
   }
   
   
