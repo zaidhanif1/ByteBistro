@@ -13,8 +13,8 @@ export default function App()
     <div>
       <Header/>
       <Routes>
-        <Route path='/welcome' element = {<Welcome/>}></Route>
-        <Route path='/' element={<Main />} />
+        <Route path='/' element = {<Welcome/>}></Route>
+        <Route path='/main' element={<Main />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
       </Routes>

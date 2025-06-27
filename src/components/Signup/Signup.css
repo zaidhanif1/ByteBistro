@@ -9,6 +9,7 @@
     width: 600px;
     margin: auto;
     border-radius: 10px;
+    animation: fadeIn .7s ease-in-out;
 }
 .signup-h1
 {

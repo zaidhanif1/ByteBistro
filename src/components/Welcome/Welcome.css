@@ -12,6 +12,7 @@
     background-color: white;
     width: 600px;
     height: fit-content;
+    animation: fadeIn .7s ease-in-out, slideIn .7s ease-in-out;
 }
 
 .welcome-txt-p

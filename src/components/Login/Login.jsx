@@ -1,9 +1,10 @@
 import './Login.css'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-  
+  const navigate = useNavigate()
 
   const [logEmail, setLogEmail] = useState('')
   const [logPass, setLogPass] = useState('')
@@ -30,10 +31,18 @@ export default function Login() {
         body: JSON.stringify({logEmail, logPass})
       });
       const data = await res.json();
-      console.log(data)
+      
       form.reset()
       setLogEmail('')
       setLogPass('')
+
+      if(res.ok){
+        navigate('/main')
+      }
+      else{
+        alert('Invalid email or password')
+      }
+      
   }
   
   
