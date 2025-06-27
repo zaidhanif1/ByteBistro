@@ -1,4 +1,5 @@
 import './Login.css'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 export default function Login() {
@@ -37,6 +38,14 @@ export default function Login() {
   
   
   return (
+    <motion.div
+    initial = {{ opacity : 0 }}
+    animate = {{ opacity: 1 }}
+    exit= {{ opacity : 0}}
+    transition={{duration : 1.3}}
+    
+    
+    >
     <div className='login-container'>
         <h1 className='login-page-h1'>Welcome Back 🍴</h1>
         <form className="login-form" onSubmit={handleLogin}>
@@ -63,5 +72,6 @@ export default function Login() {
 
         </form>
     </div>
+    </motion.div>
   )
 }

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start:backend": "node server.js",
+    "start:backend": "node server/server.js",
     "dev": "vite",
     "conc": "concurrently \"npm run start:backend\" \"npm run dev\"",
     "build": "vite build",
@@ -20,6 +20,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "font-awesome": "^4.7.0",
+    "framer-motion": "^12.19.1",
+    "motion": "^12.19.1",
     "openai": "^4.103.0",
     "pg": "^8.16.2",
     "postgres": "^3.4.7",
