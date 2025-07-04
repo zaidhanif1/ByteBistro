@@ -1,7 +1,8 @@
 import './Login.css'
-import { motion } from 'framer-motion'
+import { color, motion } from 'framer-motion'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const navigate = useNavigate()
@@ -37,10 +38,16 @@ export default function Login() {
       setLogPass('')
 
       if(res.ok){
-        navigate('/main')
+        toast.success("Login successful! Redirecting...", {
+          autoClose: 1500
+        })
+        setTimeout(() =>{
+          navigate('/main')
+        }, 1500)
+        
       }
       else{
-        alert('Invalid email or password')
+        toast.error('Invalid email or password')
       }
       
   }
@@ -77,8 +84,10 @@ export default function Login() {
          
 
 </div>
-        <button className = 'login-form-btn' >Login </button>
-
+    <div className='login-bottom-div'>
+            <button className ='login-form-btn' >Login </button>
+            <p>Don't have an account? <Link to = '/signup' style={{color: 'black'}}>Signup</Link></p>
+    </div>
         </form>
     </div>
     </motion.div>

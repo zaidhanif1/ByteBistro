@@ -37,3 +37,13 @@ body, html
         transform: translateY(0);
     }
 }
+.Toastify__toast {
+  font-family: Inter, sans-serif;
+  font-size: .85rem;
+}
+.Toastify__toast--success {
+  background: linear-gradient(#556B2F, #E76F51)
+}
+.Toastify__toast--error {
+  background: linear-gradient(#556B2F, #E76F51);
+}

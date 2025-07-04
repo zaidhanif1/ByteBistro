@@ -41,9 +41,21 @@
     box-shadow: 0 0 0 1.5px white;
     
 }
+.error-msg-signup
+{
+    color: red;
+}
+.bottom-div-signup
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+}
 .sign-up-btn
 {
-    margin-top: 15px;
+    margin: 15px auto;
     padding: 10px 15px;
 
     font-family: Inter, sans-serif;
@@ -70,7 +82,14 @@
 {
     transform: scale(.95)
 }
-
+.already-have-accnt
+{
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
 @media (max-width: 768px) 
 {
     .signup-page
