@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Routes, Route} from 'react-router-dom'
 import './App.css';
 import Header from "./components/Header/Header";
@@ -9,9 +9,27 @@ import Login from './components/Login/Login'
 
 export default function App()
 {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('isDark');
+    return saved ? JSON.parse(saved) : true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('isDark', JSON.stringify(isDark));
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  const toggleTheme = () =>{
+    setIsDark(!isDark);
+  }
+
   return(
     <div>
-      <Header/>
+      <Header
+      toggleTheme = {toggleTheme}
+      isChecked={isDark}
+      />
+
       <Routes>
         <Route path='/' element = {<Welcome/>}></Route>
         <Route path='/main' element={<Main />} />

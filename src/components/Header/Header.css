@@ -1,18 +1,21 @@
 .header
 {
     display: flex;
-
     font-weight: 400;
     font-size: 1rem;
     box-shadow: 0 4px 6px #E76F51;
     margin-bottom: 20px;
     width: 100%;
-    color: #556B2F ;
-    background-color: #ffffff ;
+    color: var(--color);
+    background-color: var(--background-color);
+
 }
 .logo-header-div
 {
     display: flex;
+}
+.logo-header-div h1
+{
 }
 .logo-link
 {
