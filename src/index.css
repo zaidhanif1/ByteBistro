@@ -47,3 +47,10 @@ body, html
 .Toastify__toast--error {
   background: linear-gradient(#556B2F, #E76F51);
 }
+
+@media (max-width: 768px) 
+{
+    .Toastify__toast{
+        width: 150px;
+    }
+}

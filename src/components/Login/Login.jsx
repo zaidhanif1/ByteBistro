@@ -43,7 +43,7 @@ export default function Login() {
         })
         setTimeout(() =>{
           navigate('/main')
-        }, 1500)
+        }, 1700)
         
       }
       else{

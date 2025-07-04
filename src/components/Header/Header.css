@@ -10,7 +10,10 @@
     color: #556B2F ;
     background-color: #ffffff ;
 }
-
+.logo-header-div
+{
+    display: flex;
+}
 .logo-link
 {
     text-decoration: none;

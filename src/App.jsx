@@ -6,7 +6,6 @@ import Main from './components/Main/Main'
 import Signup from './components/Signup/Signup';
 import Welcome from './components/Welcome/Welcome'
 import Login from './components/Login/Login'
-import Success from './components/Success/Success'
 
 export default function App()
 {
@@ -17,7 +16,6 @@ export default function App()
         <Route path='/' element = {<Welcome/>}></Route>
         <Route path='/main' element={<Main />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='success' element = {<Success />} />
         <Route path='/login' element={<Login />} />
       </Routes>
     </div>
