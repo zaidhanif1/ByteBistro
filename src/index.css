@@ -1,36 +1,61 @@
 body, html
 {
     font-family: Inter, sans-serif;
-    background: var(--background-color);
+    background-color: var(--background-color);
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    
     color: var(--color);
     margin: 0;
     min-height: 10vh;
     width: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    transition: all 1s ease;
 }
 
 
 :root
 {
-    background: white;
-    --background-color: linear-gradient(to bottom, #556B2F, #E76F51);
-    --color: #556B2F;
-    --toggle-bg: white;
-    --toggle-fg: whitesmoke;
+    --header-bg: #4D2C1D;
+    --header-color: white;
+    --header-text-shadow: 1px 1px 3px #4D2C1D;
+    
+    --div-bg-color: #4D2C1D  ;
+
+    --background-color: #D4C4A8 ; 
+    --color: #FFF;
+
+    --btn-bg-color: #E76F51;
+    --btn-color: white;
+
+    --toast-bg: #b4a78f;
+
+    --specific-ingredient-bg: #E76F51;
+
+    --toggle-bg: #D4C4A8;
+    --toggle-fg: #4D2C1D;
 
 }
 [data-theme='dark']
 {
-    --background-color: linear-gradient(to bottom, #1A1A1A, #2D2A26);
-    --color: #556B2f;
-    --secondary-text-color: #4a5568;
-    --accent-color: #E76F51;
-    --primary-color: #556B2F;
-    --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    --header-bg: transparent;
+    --header-color: white;
+    --header-text-shadow: 1px 1px 20px #556B2F;
+
+    --div-bg-color: #2a2a2a;
+    
+    --background-color: #1e1e1e;
+    --color: white;
+
+    --btn-bg-color: #E76F51;
+    --btn-color: white;
+
+    --toast-bg: #2a2a2a;
+
+    --specific-ingredient-bg: #E76F51;
+
+    --toggle-bg: #2a2a2a;
+    --toggle-fg: #1e1e1e;
+    
 }
 #root {
     min-height: 150vh;
@@ -41,10 +66,10 @@ body, html
   font-size: .85rem;
 }
 .Toastify__toast--success {
-  background: linear-gradient(#556B2F, #E76F51)
+    background-color: var(--toast-bg);
 }
 .Toastify__toast--error {
-  background: linear-gradient(#556B2F, #E76F51);
+  background-color: var(--toast-bg);
 }
 
 @keyframes fadeIn {
@@ -70,7 +95,6 @@ body, html
         transform: translateY(0);
     }
 }
-
 
 
 

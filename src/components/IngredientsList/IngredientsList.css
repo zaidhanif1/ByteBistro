@@ -1,7 +1,7 @@
 .generate-recipe-main
 {
     display: flex;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--div-bg-color);
     align-items: center;
     border-radius: 10px;
     padding: 20px;
@@ -28,7 +28,7 @@
     font-weight: 500;
     padding: 15px 20px;
     border-radius: 10px;
-    background-color: #E76F51;
+    background-color: var(--btn-bg-color);
     color: white;
     transition: transform 0.3s ease;
     cursor: pointer;
@@ -50,7 +50,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: white;
+    background-color: var(--div-bg-color);
     width: 600px;
     padding: 20px;
     border-radius: 10px;
@@ -68,7 +68,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--div-bg-color);
     border-radius: 10px;
     width: 100%;
     max-width: 600px;
@@ -104,10 +104,10 @@ ol
 {
     padding: 10px 20px;
     margin: 5px;
-    background-color: #ffffff;
-    border: 2.5px solid #4d8853;
+    background-color: var(--specific-ingredient-bg);
+    border: 2.5px solid var(--btn-bg-color);
     border-radius: 10px;
-    color: black;
+    color: var(--color);
     font-weight: 500;
     transition: transform 0.3s ease; 
 
@@ -151,12 +151,17 @@ ol
 .delete-all-ingredients-btn
 {
     padding: 5px;
+
     font-size: .7rem;
     font-weight: 500;
     font-family: Inter, sans-serif;
+
     border-style: none;
-    background: none;
     border-radius: 5px;
+
+    background: none;
+    color: var(--color);
+    
     transition: 
     transform .3s ease,
      background-color .3s ease,
@@ -165,7 +170,7 @@ ol
 }
 .delete-all-ingredients-btn:hover
 {
-    /* background: rgb(249, 244, 185); */
+    
     color: rgb(255, 0, 0);
     transform: translateY(-2px);
 }
@@ -173,7 +178,7 @@ ol
 .loader {
     width: 48px;
     height: 48px;
-    border: 5px solid #ffffff;
+    border: 5px solid var(--color);
     border-bottom-color: #E76F51;
     border-radius: 50%;
     display: inline-block;

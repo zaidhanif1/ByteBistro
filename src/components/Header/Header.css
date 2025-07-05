@@ -1,13 +1,14 @@
 .header
 {
     display: flex;
+    justify-content: space-between;
     font-weight: 400;
     font-size: 1rem;
     box-shadow: 0 4px 6px #E76F51;
     margin-bottom: 20px;
     width: 100%;
     color: var(--color);
-    background-color: var(--background-color);
+    background-color: var(--header-bg);
 
 }
 .logo-header-div
@@ -16,6 +17,8 @@
 }
 .logo-header-div h1
 {
+    color: var(--header-color);
+    text-shadow: var(--header-text-shadow);
 }
 .logo-link
 {
@@ -33,6 +36,69 @@ img
     width: 80px;
     
 }
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin: auto 20px;
+}
+
+
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    appearance: none;
+    background: var(--toggle-bg);
+    border-radius: 30px;
+    box-shadow: inset 0 0 5px var(--toggle-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle::before {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    top: 2px;
+    left: 1px;
+    right: 1px;
+    background: var(--toggle-fg);
+    box-shadow: 0 0px 5px var(--toggle-fg);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+
+.toggle:checked::before {
+    transform: translateX(30px);
+}
+
+
+.toggle:checked {
+    background: var(--toggle-bg);
+}
+
+
+.toggle::after {
+    content: '☀️';
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.toggle:checked::after {
+    content: '🌙';
+    left: 38px;
+}
+
 
 @media (max-width: 768px)
 {

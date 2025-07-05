@@ -9,7 +9,7 @@
     margin: 20px 0px auto 0px;
     
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--div-bg-color);
     width: 600px;
     height: fit-content;
     animation: fadeIn .7s ease-in-out, slideIn .7s ease-in-out;
@@ -51,7 +51,8 @@
     border-style: none;
     color: white;
     background-color: #E76F51;
-
+    
+    cursor: pointer;
     transition: transform 0.3s ease;
 
 }

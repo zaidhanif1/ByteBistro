@@ -2,7 +2,7 @@
 {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--div-bg-color);
     align-items: center;
     text-align: center;
     padding: 20px;
@@ -38,7 +38,7 @@
 {
     border: 3px solid #556B2F;
     outline: none;
-    box-shadow: 0 0 0 1.5px white;
+    box-shadow: 0 0 0 1.5px var(--div-bg-color);
     
 }
 .error-msg-signup
@@ -61,11 +61,11 @@
     font-family: Inter, sans-serif;
     font-size: 1.1rem;
     
+    color: var(--btn-color);
+    background-color: var(--btn-bg-color);
 
-    background-color: white;
-
-    border: 2px solid #556B2F;
     border-radius: 10px;
+    border: none;
 
     cursor: pointer;
     transition: transform 0.3s ease, border 0.3s ease;
@@ -74,7 +74,6 @@
 .sign-up-btn:hover
 {
     transform: scale(1.05);
-    border: 2px solid #E76F51 ;
 
     
 }

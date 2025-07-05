@@ -5,7 +5,8 @@
     flex-direction: column;
     list-style-type: none;
     text-align: left;
-    background-color: white;
+    background-color: var(--div-bg-color);
+    color: var(--color);
     width: 600px;
     margin: 100px auto auto auto;
     padding: 20px;

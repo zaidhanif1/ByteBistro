@@ -86,7 +86,7 @@ export default function Login() {
 </div>
     <div className='login-bottom-div'>
             <button className ='login-form-btn' >Login </button>
-            <p>Don't have an account? <Link to = '/signup' style={{color: 'black'}}>Signup</Link></p>
+            <p>Don't have an account? <Link to = '/signup' style={{color: 'var(--color)'}}>Signup</Link></p>
     </div>
         </form>
     </div>
