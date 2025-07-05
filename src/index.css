@@ -32,7 +32,8 @@ body, html
     --specific-ingredient-bg: #E76F51;
 
     --toggle-bg: #D4C4A8;
-    --toggle-fg: #4D2C1D;
+    --toggle-fg: #D4C4A8;
+    --toggle-shadow: 0 0px 5px #4D2C1D;
 
 }
 [data-theme='dark']
@@ -54,7 +55,8 @@ body, html
     --specific-ingredient-bg: #E76F51;
 
     --toggle-bg: #2a2a2a;
-    --toggle-fg: #1e1e1e;
+    --toggle-fg: #2a2a2a;
+    --toggle-shadow: 0 0px 5px white;
     
 }
 #root {
