@@ -6,6 +6,7 @@ import Main from './components/Main/Main'
 import Signup from './components/Signup/Signup';
 import Welcome from './components/Welcome/Welcome'
 import Login from './components/Login/Login'
+import Footer from './components/Footer/Footer'
 
 export default function App()
 {
@@ -36,6 +37,7 @@ export default function App()
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
       </Routes>
+      <Footer />
     </div>
   )
 }
