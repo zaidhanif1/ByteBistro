@@ -1,9 +1,11 @@
 import './Welcome.css'
 import { Link } from 'react-router-dom'
+import Logo from '../../assets/welcomePageLogo.png'
 
 export default function Welcome()
 {
     return(
+        <div className='welcome-page-main'>
        <div className="welcome-page">
         <p className='welcome-txt-p'>Welcome to ByteBistro!👋 </p>
         <h1 className='welcome-h1'>Have a few ingredients on hand? <br />
@@ -22,6 +24,11 @@ export default function Welcome()
         <Link to='/login' style={{textDecoration: 'none'}}>
         <button className='login-btn'>Login</button>
         </Link>
+        </div>
+
+        </div>
+        <div className='welcome-img-div'>
+            <img src={Logo} alt="Welcome Page Logo" className='welcome-logo'/>
         </div>
         </div>
     )

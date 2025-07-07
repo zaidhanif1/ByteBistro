@@ -1,3 +1,9 @@
+.welcome-page-main
+{
+    display: flex;
+}
+
+
 .welcome-page
 {
     display: flex;
@@ -10,7 +16,7 @@
     
     border-radius: 20px;
     background-color: var(--div-bg-color);
-    width: 600px;
+    width: 500px;
     height: fit-content;
     animation: fadeIn .7s ease-in-out, slideIn .7s ease-in-out;
 }
@@ -66,12 +72,45 @@
         transform: scale(.95);
 
 }
+.welcome-img-div
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.welcome-logo
+{
+    width: 500px;
+    border-radius: 2rem;
+    animation: float 3s ease-in-out infinite;
+    
+}
+
+
+
+@keyframes float {
+  0%, 100% {
+     transform: translateY(0); 
+    }
+  50% {
+     transform: translateY(-10px); 
+    }
+}
+
+
+
+
+
+
 @media (max-width: 768px)
 {
     .welcome-page
     {
-        width: 300px;
+        width: 350px;
         height: fit-content ;
+        text-align: center;
+        order: 2;
     }
     .welcome-h1
     {
@@ -81,9 +120,26 @@
     {
         font-size: 0.8rem;
     }
+    .buttons
+    {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        
+    }
   
     .signup-btn, .login-btn
     {
         font-size: 0.8rem;
+    }
+    .welcome-page-main
+{
+    flex-direction: column;
+    align-items: center;
+}
+    .welcome-logo
+    {
+        margin-top: 30px;
+        width: 100px;
     }
 }
