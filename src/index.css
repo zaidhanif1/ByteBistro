@@ -19,10 +19,12 @@ body, html
     --header-color: white;
     --header-text-shadow: 1px 1px 3px #4D2C1D;
     
-    --div-bg-color: #4D2C1D  ;
+    --div-bg-color: #4D2C1D;
 
     --background-color: #D4C4A8 ; 
     --color: #FFF;
+
+    --footer-bg-color: #4D2C1D;
 
     --btn-bg-color: #E76F51;
     --btn-color: white;
@@ -47,6 +49,8 @@ body, html
     --background-color: #1e1e1e;
     --color: white;
 
+    --footer-bg-color: #2a2a2a;
+
     --btn-bg-color: #E76F51;
     --btn-color: white;
 
@@ -59,10 +63,8 @@ body, html
     --toggle-shadow: 0 0px 5px white;
     
 }
-#root {
-    min-height: 150vh;
-    width: 100%;
-}
+
+
 .Toastify__toast {
   font-family: Inter, sans-serif;
   font-size: .85rem;

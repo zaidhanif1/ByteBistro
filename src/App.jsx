@@ -8,6 +8,7 @@ import Welcome from './components/Welcome/Welcome'
 import Login from './components/Login/Login'
 import Footer from './components/Footer/Footer'
 
+
 export default function App()
 {
   const [isDark, setIsDark] = useState(() => {
@@ -25,7 +26,7 @@ export default function App()
   }
 
   return(
-    <div>
+    <div className = 'app-main-div'>
       <Header
       toggleTheme = {toggleTheme}
       isChecked={isDark}

@@ -1,0 +1,82 @@
+.footer-main-div
+{
+    margin-top: auto;
+    margin-bottom: 0px;
+    padding: 1rem 2rem;
+
+    border-top: 3px solid var(--footer-bg-color);    
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    background-color: var(--bg-color);
+}
+.buy-me-coffee-a
+{
+    font-size: 1rem;
+    color: var(--color);
+
+}
+.buy-coffee-div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+}
+
+.social-links
+{
+    margin-right: 3rem;
+    display: flex;
+    flex-direction: column;
+
+}
+.social-links a
+{
+    font-size: 1rem;
+    color: var(--color);
+    text-align: left;
+
+    padding: .5rem;
+    margin: 1px;
+
+}
+
+
+@media (max-width: 768px)
+{
+    .footer-main-div
+    {
+        justify-content: space-around;
+    }
+    .footer-main-div p
+    {
+        font-size: .9rem;
+    }
+    .footer-main-div
+    {
+        padding: 1rem;
+        
+    }
+    .buy-coffee-div
+    {
+        align-items: center;
+        justify-content: start;
+        
+    }
+    .buy-me-coffee-a
+    {
+        font-size: .7rem;
+        margin-left: 0rem;
+    }
+    .social-links a
+    {
+        flex-direction: row;
+        font-size: .7rem;
+        margin-right: 0rem;
+
+    }
+}
