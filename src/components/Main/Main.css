@@ -109,7 +109,7 @@ input
     {
         width: 100%;
         max-width: 300px;
-        margin: auto;
+        margin: 0px auto 1rem auto;
 
     }
     .question-header
