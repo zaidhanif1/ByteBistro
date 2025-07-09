@@ -12,18 +12,22 @@
 
     background-color: var(--bg-color);
 }
+
 .buy-me-coffee-a
 {
     font-size: 1rem;
     color: var(--color);
-
+   
+    
+}
+.footer-main-div p
+{
+    font-size: 1.2rem;
 }
 .buy-coffee-div
 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
     text-align: left;
 }
 
@@ -32,6 +36,8 @@
     margin-right: 3rem;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 
 }
 .social-links a
@@ -54,23 +60,18 @@
     }
     .footer-main-div p
     {
-        font-size: .9rem;
+        font-size: 1rem;
     }
     .footer-main-div
     {
         padding: 1rem;
         
     }
-    .buy-coffee-div
-    {
-        align-items: center;
-        justify-content: start;
-        
-    }
     .buy-me-coffee-a
     {
         font-size: .7rem;
         margin-left: 0rem;
+        padding: 0.2rem;
     }
     .social-links a
     {
