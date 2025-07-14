@@ -17,8 +17,7 @@ export const login = async (req, res) => {
       return res.status(400).json({error : 'Invalid email or password'})
     }
 
-console.log("Login attempt:", logEmail, logPass);
-console.log("User found in DB:", user);
+
 
     res.status(200).json({message: "Login Successful", user: user.id})
   } catch(error)
