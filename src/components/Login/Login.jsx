@@ -21,7 +21,7 @@ export default function Login() {
 
         const API_BASE = import.meta.env.MODE === 'development' 
         ? 'http://localhost:8000' 
-        : "https://bytebistro-production.up.railway.app";
+        : "https://bytebistro-l3ya.onrender.com";
       
       const res = await fetch(`${API_BASE}/api/login`, {
         method: 'POST', 

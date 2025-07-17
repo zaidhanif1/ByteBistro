@@ -17,7 +17,7 @@ export default function Signup()
         const trimmedPassword = password?.trim();
         const API_BASE = import.meta.env.MODE === 'development' 
         ? 'http://localhost:8000' 
-        : "https://bytebistro-production.up.railway.app";
+        : "https://bytebistro-l3ya.onrender.com";
 
         try {
             const res = await fetch(`${API_BASE}/api/signup`, {
