@@ -29,7 +29,7 @@ export default function Login() {
         {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({logEmail, logPass})
+        body: JSON.stringify({email: logEmail, password: logPass})
       });
       const data = await res.json();
       
