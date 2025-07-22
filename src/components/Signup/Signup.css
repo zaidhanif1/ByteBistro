@@ -94,6 +94,7 @@
     .signup-page
     {
         width: 300px;
+        margin-top: 1rem;
     }
     .signup-h1
     {
@@ -106,5 +107,6 @@
     .sign-up-btn
     {
         font-size: 0.8rem;
+        color: var(--color);
     }
 }

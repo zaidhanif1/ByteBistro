@@ -11,6 +11,7 @@
     margin: 100px auto auto auto;
     padding: 20px;
     border-radius: 20px;
+    margin-bottom: 4rem;
     
 }
 .byte-bistro-h1
@@ -19,7 +20,32 @@
 
     
 }
+.save-recipe-btn
+{
+    border: 1px solid var(--background-color);
+    border-radius: 10px;
+    
+    font-size: 1rem;
+    font-family: var(--font);
+    color: var(--color);
+    background-color: transparent;
+    width: fit-content;
+    
+    padding: .5rem 1rem;
+    margin: auto;
+    cursor: pointer;
 
+    transition: all 0.3s ease;
+
+}
+.save-recipe-btn:hover
+{
+    transform: scale(1.05);
+}
+.save-recipe-btn:active
+{
+    transform: scale(.95);
+}
 
 @media (max-width: 768px)
 {

@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { useNavigate, Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
 import './Signup.css'
+import { apiCall } from '../../utils/api.js'
 
 export default function Signup()
 {
-    
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
  
@@ -15,39 +16,36 @@ export default function Signup()
         const form = e.target;
         const trimmedEmail = email?.trim();
         const trimmedPassword = password?.trim();
-        const API_BASE = import.meta.env.MODE === 'development' 
-        ? 'http://localhost:8000' 
-        : "https://bytebistro-l3ya.onrender.com";
 
         try {
-            const res = await fetch(`${API_BASE}/api/signup`, {
-                method: 'POST', 
-                headers: {
-                    "Content-Type": 'application/json'
-                },
+            const data = await apiCall('/signup', {
+                method: 'POST',
                 body: JSON.stringify({email: trimmedEmail, password: trimmedPassword})         
             });
-
-            const data = await res.json();
             
-            if(res.ok) {
-                toast.success('Successfully signed up!');
-                form.reset();
-                setEmail('');
-                setPassword('');
-
-            } else if(res.status === 409) {
-        
-                toast.error('Email already in use, try logging in or using another email', {
-
-                });
-            } else {
-                toast.error(data.message || 'Signup failed. Please try again.');
-                setError(data.message || 'Signup failed. Please try again.');
+            
+            if (data.token) {
+              localStorage.setItem('token', data.token)
+              localStorage.setItem('userId', data.userId)
             }
+            
+            toast.success('Successfully signed up! Redirecting...', {
+              autoClose: 1500
+            });
+            form.reset();
+            setEmail('');
+            setPassword('');
+            
+            setTimeout(() => {
+              navigate('/main')
+            }, 1700)
+
         } catch (error) {
-            toast.error('Network error. Please check your connection and try again.');
-            setError('Network error. Please check your connection and try again.');
+            if (error.message.includes('409')) {
+                toast.error('Email already in use, try logging in or using another email');
+            } else {
+                toast.error('Network error. Please check your connection and try again.');
+            }
         }
     }
 
@@ -77,7 +75,7 @@ export default function Signup()
                 </div>
                 <div className='bottom-div-signup'>
                 <button className='sign-up-btn' type='submit'>Sign up!</button>
-                <span>Already have an account? <Link to='/login' style={{color: "black"}}>Sign in</Link> </span>
+                <span>Already have an account? <Link to='/login' style={{color: 'var(--color)'}}>Sign in</Link> </span>
                 </div>
             </form>
         </div>

@@ -7,6 +7,7 @@ import Signup from './components/Signup/Signup';
 import Welcome from './components/Welcome/Welcome'
 import Login from './components/Login/Login'
 import Footer from './components/Footer/Footer'
+import SavedRecipes from './components/SavedRecipes/SavedRecipes';
 
 
 export default function App()
@@ -33,10 +34,11 @@ export default function App()
       />
 
       <Routes>
-        <Route path='/' element = {<Welcome/>}></Route>
+        <Route path='/' element = {<Welcome/>} />
         <Route path='/main' element={<Main />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/savedrecipes' element = {<SavedRecipes/>}/>
       </Routes>
       <Footer />
     </div>

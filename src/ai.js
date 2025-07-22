@@ -1,3 +1,5 @@
+import { apiCall } from './utils/api.js'
+
 /**
  *
  * @param {string[]} ingredients
@@ -5,22 +7,15 @@
  */
 export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
-  const API_BASE = import.meta.env.MODE==='development' ? 'http://localhost:8000' : "https://bytebistro-l3ya.onrender.com";
-
-  const res = await fetch (`${API_BASE}/api/recipe`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ingredients})
-  })
-
-
-    if (!res.ok)
-    {
-      const { error } = await res.json()
-      throw new Error(error || 'Failed to fetch recipe')
-    }
-
-
-    const { recipe } = await res.json()
-    return recipe
+  
+  try {
+    const { recipe } = await apiCall('/recipe', {
+      method: 'POST',
+      body: JSON.stringify({ingredients})
+    });
+    
+    return recipe;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to fetch recipe');
   }
+}

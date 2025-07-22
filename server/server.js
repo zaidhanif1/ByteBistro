@@ -12,16 +12,16 @@ app.use(express.json())
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
 app.use(cors({
       origin: (origin, callBack) => {
-        if (!origin || allowed.includes(origin))   return callBack(null, true); 
+        if (!origin || allowed.includes(origin)) return callBack(null, true); 
            
         console.log('DENIED', origin)    
         const corsError = new Error("CORS: origin not allowed: " + origin) 
         callBack(corsError, false)          
       },
-      methods: ['GET', 'POST', 'OPTIONS'],               
+      methods: ['GET', 'POST', 'OPTIONS', 'DELETE'],               
     }))
 
-// Routes
+
 app.use('/api', apiRouter)
 
 app.use((req, res) => {

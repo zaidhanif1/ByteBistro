@@ -20,6 +20,17 @@ main{
     max-width: 700px;
     animation: fadeIn 1s ease forwards;
 }
+.is-in-kitchen-div
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.byte-thinking
+{
+    width: 100px;
+    height: 100px;
+}
 .direction-text
 {
    margin-bottom: 30px;
@@ -111,6 +122,11 @@ input
         max-width: 300px;
         margin: 0px auto 1rem auto;
 
+    }
+    .byte-thinking
+    {
+        width: 70px;
+        height: 70px;
     }
     .question-header
     {

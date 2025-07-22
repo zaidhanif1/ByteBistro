@@ -3,7 +3,7 @@ import './Main.css'
 import ByteBistro from '../ByteBistro/ByteBistro'
 import IngredientsList from '../IngredientsList/IngredientsList'
 import { getRecipeFromGemini} from '../../ai'
-
+import byteThinking from '../../assets/bytethinking.png'
 export default function Main()
 {
     const [ingredients, setIngredients] = React.useState([])
@@ -54,7 +54,10 @@ React.useEffect(() => {
         <>
         <main>
             <div className='direction-text'>
+            <div className='is-in-kitchen-div'>
             <h1 className='question-header'>What's in your kitchen?</h1>
+            <img src={byteThinking} alt="Byte Thinking" className='byte-thinking'/>
+            </div>
             <h3 className='add-ingredients-h3'>Add ingredients below!</h3>
             </div>
             <form onSubmit = {addIngredient} className="add-ingredient-form">

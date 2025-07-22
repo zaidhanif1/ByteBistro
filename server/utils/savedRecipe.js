@@ -1,0 +1,67 @@
+import { pool } from '../config/database.js'
+
+export const savedRecipe = async (req, res) => {
+    const { title, ingredients, content } = req.body;
+    const userId = req.user?.id;
+
+    if(!userId){
+        return res.status(401).json({ error : 'Unauthorized: User ID not found'})
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO recipes (user_id, title, ingredients, content, created_at)
+            VALUES ($1, $2, $3, $4, NOW()) RETURNING id`,
+            [userId, title, ingredients, content]
+        );
+
+        res.status(201).json({ message : 'Recipe saved', recipeId: result.rows[0].id });
+       } catch (error){
+        console.error(error);
+        res.status(500).json({ error: error.message || 'Failed to save recipe'});
+       }
+} 
+//end post ----------------------------------------------------------------------------------
+
+
+
+export const getSavedRecipes = async (req, res) => {
+    const userId = req.user?.id;
+    if (!userId) {
+        return res.status(401).json({ error: 'Unauthorized: User ID not found' });
+    }
+    try {
+        const result = await pool.query(
+            `SELECT id, title, ingredients, content, created_at FROM recipes WHERE user_id = $1 ORDER BY created_at DESC`,
+            [userId]
+        );
+        res.status(200).json({ recipes: result.rows });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message || 'Failed to fetch saved recipes' });
+    }
+};
+
+//end get ----------------------------------------------------------------------------------
+
+export const deleteSavedRecipe = async (req,res) => {
+    const userId = req.user?.id;
+    const recipeId = req.params.id;
+    if(!userId) return res.status(401).json({ error : "Unauthorized"});
+
+    try {
+        const result = await pool.query(
+            'DELETE FROM recipes WHERE id = $1 AND user_id = $2 RETURNING id',
+            [recipeId, userId]
+        );
+
+        if(result.rowCount === 0) {
+            return res.status(404).json({ error: "Recipe not found or not yours"});
+        }
+        res.status(200).json({ message : 'Recipe deleted' })
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message || 'Failed to delete recipe'})
+    };
+}
+//end delete ----------------------------------------------------------------------------------

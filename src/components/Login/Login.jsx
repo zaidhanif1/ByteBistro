@@ -3,6 +3,7 @@ import { color, motion } from 'framer-motion'
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { apiCall } from '../../utils/api.js'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -19,36 +20,32 @@ export default function Login() {
     const trimmedLogEmail = logEmail?.trim()
     const trimmedLogPass = logPass?.trim()
 
-        const API_BASE = import.meta.env.MODE === 'development' 
-        ? 'http://localhost:8000' 
-        : "https://bytebistro-l3ya.onrender.com";
-      
-      const res = await fetch(`${API_BASE}/api/login`, {
-        method: 'POST', 
-        headers:
-        {
-          'Content-Type': 'application/json'
-        },
+    try {
+      const data = await apiCall('/login', {
+        method: 'POST',
         body: JSON.stringify({email: logEmail, password: logPass})
       });
-      const data = await res.json();
       
       form.reset()
       setLogEmail('')
       setLogPass('')
 
-      if(res.ok){
-        toast.success("Login successful! Redirecting...", {
-          autoClose: 1500
-        })
-        setTimeout(() =>{
-          navigate('/main')
-        }, 1700)
-        
+      // Store the JWT token in localStorage
+      if (data.token) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('userId', data.userId)
       }
-      else{
-        toast.error('Invalid email or password')
-      }
+      
+      toast.success("Login successful! Redirecting...", {
+        autoClose: 1500
+      })
+      setTimeout(() =>{
+        navigate('/main')
+      }, 1700)
+      
+    } catch (error) {
+      toast.error('Invalid email or password')
+    }
       
   }
   

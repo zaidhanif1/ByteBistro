@@ -11,6 +11,12 @@
     background-color: var(--header-bg);
 
 }
+.dark-mode-links-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 .logo-header-div
 {
     display: flex;
@@ -36,7 +42,18 @@ img
     width: 80px;
     
 }
-
+.recipe-hrefs
+{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.recipe-hrefs a
+{
+    text-decoration: inherit;
+    color: var(--color);
+    margin: 1rem;
+}
 .toggle-container {
     display: flex;
     align-items: center;
@@ -68,7 +85,6 @@ img
     background: var(--toggle-fg);
     box-shadow: var(--toggle-shadow);
     transition: all 0.3s ease;
-    z-index: 1;
 }
 
 
@@ -91,7 +107,6 @@ img
     transform: translateY(-50%);
     font-size: 14px;
     transition: all 0.3s ease;
-    z-index: 2;
 }
 
 .toggle:checked::after {
@@ -99,6 +114,37 @@ img
     left: 38px;
 }
 
+/* Hamburger styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+
+}
+.hamburger .bar {
+  width: 1.7rem;
+  height: 3px;
+  background: var(--color);
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+.hamburger.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
 
 @media (max-width: 768px)
 {
@@ -108,7 +154,11 @@ img
         width: 50px;
         margin: auto;
     }
-    
+    .dark-mode-links-container
+    {
+        width: 100%;
+        justify-content: space-around;
+    }
    
     .toggle
     {
@@ -138,4 +188,38 @@ img
     .toggle:checked::before {
         transform: translateX(22px);
     }
+    .hamburger {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  .recipe-hrefs {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--header-bg);
+    flex-direction: column;
+    width: 100px;
+    border-radius: 5px;
+    z-index: 5;
+    padding: .2rem;
+    text-align: left;
+  }
+  .recipe-hrefs.open {
+    display: flex;
+    background-color: var(--div-bg-color);
+  }
+  .recipe-hrefs a {
+    margin: 1rem 2rem;
+    font-size: .5rem;
+    text-align: left;
+    animation: fadeIn 0.3s ease
+  }
+  .header {
+    position: relative;
+  }
 }
+
+
