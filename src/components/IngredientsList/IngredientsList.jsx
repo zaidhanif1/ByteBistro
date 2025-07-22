@@ -1,5 +1,5 @@
 import './IngredientsList.css'
-import Clipboard from '../../assets/Clipboard.png'
+import ByteClipboard from '../../assets/byte-clipboard.png'
 export default function IngredientsList(props)
 
 {
@@ -48,6 +48,7 @@ const ingredientIcons = {
     pizza: "🍕",
     taco: "🌮",
     steak: "🥩",
+    cabbage : '🥬',
     default: "🥘",
 };
 
@@ -83,7 +84,7 @@ function getIcon(ingredient)
 
                 
                 {props.ingredients.length === 0 ? (<div className='no-ingredients-yet'>
-                    <img src={Clipboard} alt="" />
+                    <img src={ByteClipboard} alt="Byte Holding Clipboard" className = 'byte-clipboard' />
                     <h1 className='no-ingredients-yet-h1'>No ingredients yet</h1>
                     <p>Add some ingredients to begin!
 

@@ -22,8 +22,8 @@
 .get-a-recipe-button
 {
     font-size: 1rem;
-    text-decoration: none;
-    border: none;
+    text-decoration: ne;
+    border: ne;
     font-family: Inter, sans-serif;
     font-weight: 500;
     padding: 15px 20px;
@@ -33,7 +33,11 @@
     transition: transform 0.3s ease;
     cursor: pointer;
 }
-
+.byte-clipboard
+{
+    width: 100px;
+    height: 100px;
+}
 
 .get-a-recipe-button:hover
 {
@@ -49,10 +53,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     background-color: var(--div-bg-color);
     width: 600px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     opacity: 0;
     animation: fadeIn 1s ease 1.5s forwards;
@@ -219,10 +224,7 @@ ol
 {
     font-size: .8rem;
 }
-.no-ingredients-yet img
-{
-    width: 50px;
-}
+
 
 .get-a-recipe-button
 {
@@ -248,7 +250,11 @@ ol
     width: 30px;
     height: 30px;
 }
-
+.byte-clipboard
+{
+    width: 70px;
+    height: 70px;
+}
 
 
 }
