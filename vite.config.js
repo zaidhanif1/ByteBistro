@@ -6,4 +6,9 @@ export default defineConfig({
   plugins: [react()],
   // Vite automatically exposes VITE_ prefixed env variables
   // No need to manually define process.env
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8000', // or whatever port your backend runs on
+    }
+  }
 })

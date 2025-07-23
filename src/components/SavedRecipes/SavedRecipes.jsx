@@ -10,6 +10,7 @@ export default function SavedRecipes() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
         async function fetchRecipes() {
@@ -27,6 +28,71 @@ export default function SavedRecipes() {
         fetchRecipes();
     }, []);
 
+    useEffect(() => {
+        // Get token from localStorage
+        const storedToken = localStorage.getItem('token');
+        setToken(storedToken);
+    }, []);
+
+    const createImage = async (recipeId) => {
+        try {
+            const response = await fetch('/api/generate-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ recipe_id: recipeId }),
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Image generation failed: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.imageUrl;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    };
+
+    useEffect(() => {
+        const fetchRecipesAndImages = async () => {
+            if (recipes.length > 0 && token) {
+                const updatedRecipes = await Promise.all(
+                    recipes.map(async (recipe) => {
+                        try {
+                            const imageUrl = await createImage(recipe.id);
+                            return { ...recipe, imageUrl };
+                        } catch (error) {
+                            console.error(`Failed to generate image for recipe ${recipe.id}:`, error);
+                            return { ...recipe, imageUrl: null };
+                        }
+                    })
+                );
+                setRecipes(updatedRecipes);
+            }
+        };
+
+        fetchRecipesAndImages();
+    }, [recipes.length > 0 && token ? recipes.map(r => r.id).join(',') : '', token]);
+
+    function RecipeCard({ recipe }) {
+        const [imageUrl, setImageUrl] = useState(recipe.imageUrl || '')
+        useEffect(() => {
+            if(!imageUrl && token) {
+                createImage(recipe.id).then(setImageUrl);
+            }
+        }, [recipe.id, imageUrl, token]);
+
+        return (
+            <div className='recipe-card'>
+                {imageUrl && <img src={imageUrl} alt={recipe.title} />}
+                <h3>{recipe.title}</h3>
+            </div>
+        )
+    }
 
     async function handleDelete(recipeid) {
         try {
@@ -38,15 +104,13 @@ export default function SavedRecipes() {
         }
     }
 
-
-
     if (loading) return <div className="loading-div"><span className='loader' ></span></div>;
     if (error) return <div className="saved-recipe-display"><p className="error-message">{error}</p></div>;
 
     if (selectedRecipe) { 
         return (
             <div className="saved-recipe-display">
-                <button className = 'back-button' onClick={() => setSelectedRecipe(null)}>← </button>
+                <button className = 'back-button' onClick={() => setSelectedRecipe(null)}>←</button>
                 <ReactMarkdown>{selectedRecipe.content}</ReactMarkdown>
             </div>
         );
@@ -61,17 +125,8 @@ export default function SavedRecipes() {
             </div>
             {recipes.length === 0 && <p className='no-saved-recipes'>No saved recipes yet.</p>}
             <div className="recipes-grid">
-                {recipes.map(recipe => (
-                    <div
-                        key={recipe.id}
-                        className="recipe-card"
-                        onClick={() => setSelectedRecipe(recipe)}
-                        style={{ cursor: 'pointer', border: '1px solid #ccc', borderRadius: '8px', padding: '1rem', margin: '0.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-                    >
-                        <button className='delete-recipe-btn' onClick={e => {e.stopPropagation(); handleDelete(recipe.id)} }>🗑️</button>
-                        <img src="#" alt="Recipe Icon"  />
-                        <h3>{recipe.title}</h3>
-                    </div>
+            {recipes.map(recipe => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
             </div>
             <Link to = '/main' className = 'generate-more-recipes'>Generate more recipes</Link>
