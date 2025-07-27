@@ -73,7 +73,7 @@ export default function ByteBistro(props) {
                 <button className="save-recipe-btn" onClick={handleSave} disabled={saving} >
                     {saving ? 'Saving...' : 'Save Recipe'}
                 </button>
-                {saveMsg && <p style={{marginTop: '0.5rem'}}>{saveMsg}</p>}
+                {saveMsg && <p style={{marginTop: '2rem', textAlign: 'center'}}>{saveMsg}</p>}
             </div>
         </section> : null
     )

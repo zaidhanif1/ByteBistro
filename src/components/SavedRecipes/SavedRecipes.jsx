@@ -13,27 +13,28 @@ export default function SavedRecipes() {
     const [token, setToken] = useState(null);
 
     useEffect(() => {
-        async function fetchRecipes() {
-            setLoading(true);
-            setError(null);
-            try {
-                const data = await apiCall('/saved-recipes', { method: 'GET' });
-                setRecipes(data.recipes || []);
-            } catch (err) {
-                setError(err.message || 'Failed to fetch saved recipes');
-            } finally {
-                setLoading(false);
-            }
-        }
         fetchRecipes();
     }, []);
 
     useEffect(() => {
-        // Get token from localStorage
         const storedToken = localStorage.getItem('token');
         setToken(storedToken);
     }, []);
 
+    
+// functions ---------------------------------------------------------------------------------------------
+async function fetchRecipes() {
+    setLoading(true);
+    setError(null);
+    try {
+        const data = await apiCall('/saved-recipes', { method: 'GET' });
+        setRecipes(data.recipes || []);
+    } catch (err) {
+        setError(err.message || 'Failed to fetch saved recipes');
+    } finally {
+        setLoading(false);
+    }
+}
     const createImage = async (recipeId) => {
         try {
             const response = await fetch('/api/generate-image', {
@@ -58,37 +59,49 @@ export default function SavedRecipes() {
     };
 
     useEffect(() => {
-        const fetchRecipesAndImages = async () => {
+        const loadImages = async () => {
             if (recipes.length > 0 && token) {
-                const updatedRecipes = await Promise.all(
-                    recipes.map(async (recipe) => {
-                        try {
-                            const imageUrl = await createImage(recipe.id);
-                            return { ...recipe, imageUrl };
-                        } catch (error) {
-                            console.error(`Failed to generate image for recipe ${recipe.id}:`, error);
-                            return { ...recipe, imageUrl: null };
+                    recipes.forEach(async (recipe) => {
+                        if (!recipe.imageUrl) {
+                            try{
+                                const imageUrl = await createImage(recipe.id);
+                                setRecipes(prev => prev.map(r => 
+                                    r.id === recipe.id ? {...r, imageUrl} : r
+                                ));
+                            }catch(error) {
+                                console.error(`Failed to generate image for recipe {recipe.id}`)
+                                setRecipes(prev => prev.map(r => 
+                                    r.id === recipe.id ? { ...r, imageUrl: null } : r
+                                ));
+                            }
                         }
-                    })
+                    }
                 );
                 setRecipes(updatedRecipes);
             }
         };
 
-        fetchRecipesAndImages();
+        loadImages();
     }, [recipes.length > 0 && token ? recipes.map(r => r.id).join(',') : '', token]);
 
     function RecipeCard({ recipe }) {
-        const [imageUrl, setImageUrl] = useState(recipe.imageUrl || '')
-        useEffect(() => {
-            if(!imageUrl && token) {
-                createImage(recipe.id).then(setImageUrl);
+        const handleDeleteClick = (e) => {
+            e.stopPropagation();
+            if (window.confirm(`Are you sure you want to delete "${recipe.title}"?`)) {
+                handleDelete(recipe.id);
             }
-        }, [recipe.id, imageUrl, token]);
+        };
 
         return (
-            <div className='recipe-card'>
-                {imageUrl && <img src={imageUrl} alt={recipe.title} />}
+            <div className='recipe-card' onClick={() => setSelectedRecipe(recipe)}>
+                <button 
+                    className="delete-recipe-btn" 
+                    onClick={handleDeleteClick}
+                    title="Delete recipe"
+                >
+                    ✕
+                </button>
+                {recipe.imageUrl ? <img src={recipe.imageUrl} className = 'recipe-img' alt={recipe.title}/> : <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center' }}>Generating image...<span className='loader'></span></p> }
                 <h3>{recipe.title}</h3>
             </div>
         )
@@ -96,11 +109,23 @@ export default function SavedRecipes() {
 
     async function handleDelete(recipeid) {
         try {
-            await apiCall(`/saved-recipes/${recipeid}`, { method: 'DELETE' });
+         
+            try {
+                await apiCall(`/images/${recipeid}`, { method: 'DELETE' });
+                console.log('Images deleted successfully');
+            } catch (imageError) {
+                console.warn('Failed to delete images:', imageError.message);
+            }
+            
+            const response = await apiCall(`/saved-recipes/${recipeid}`, { method: 'DELETE' });
+            console.log('Recipe deleted successfully');
+            
+            
             setSelectedRecipe(null);
             setRecipes(recipes => recipes.filter(r => r && r.id !== recipeid));
         } catch (err) {
-            alert('Failed to delete recipe');
+            console.error('Delete error:', err);
+            alert(`Failed to delete recipe: ${err.message}`);
         }
     }
 

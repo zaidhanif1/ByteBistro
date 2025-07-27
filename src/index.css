@@ -39,6 +39,8 @@ body, html
     --toggle-fg: #D4C4A8;
     --toggle-shadow: 0 0px 5px #4D2C1D;
 
+    --border-color: #D4C4A8;
+
 }
 [data-theme='dark']
 {
@@ -63,6 +65,8 @@ body, html
     --toggle-bg: #2a2a2a;
     --toggle-fg: #2a2a2a;
     --toggle-shadow: 0 0px 5px white;
+
+    --border-color: #e76f51;
     
 }
 

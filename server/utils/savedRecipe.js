@@ -20,7 +20,7 @@ export const savedRecipe = async (req, res) => {
         console.error(error);
         res.status(500).json({ error: error.message || 'Failed to save recipe'});
        }
-} 
+}
 //end post ----------------------------------------------------------------------------------
 
 
@@ -47,9 +47,13 @@ export const getSavedRecipes = async (req, res) => {
 export const deleteSavedRecipe = async (req,res) => {
     const userId = req.user?.id;
     const recipeId = req.params.id;
-    if(!userId) return res.status(401).json({ error : "Unauthorized"});
+    
+    if(!userId) {
+        return res.status(401).json({ error : "Unauthorized"});
+    }
 
     try {
+        // Delete the recipe (images should be deleted separately via the images endpoint)
         const result = await pool.query(
             'DELETE FROM recipes WHERE id = $1 AND user_id = $2 RETURNING id',
             [recipeId, userId]
@@ -58,9 +62,14 @@ export const deleteSavedRecipe = async (req,res) => {
         if(result.rowCount === 0) {
             return res.status(404).json({ error: "Recipe not found or not yours"});
         }
-        res.status(200).json({ message : 'Recipe deleted' })
+        
+        res.status(200).json({ 
+            message: 'Recipe deleted successfully',
+            deletedRecipeId: recipeId
+        });
     }
     catch (error) {
+        console.error('Delete error:', error);
         res.status(500).json({ error: error.message || 'Failed to delete recipe'})
     };
 }
