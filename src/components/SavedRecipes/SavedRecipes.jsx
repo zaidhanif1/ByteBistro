@@ -4,6 +4,7 @@ import { apiCall } from '../../utils/api.js';
 import ReactMarkdown from 'react-markdown';
 import Cooking from '../../assets/orange-cooking.png'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export default function SavedRecipes() {
     const [recipes, setRecipes] = useState([]);
@@ -51,23 +52,21 @@ async function fetchRecipes() {
     useEffect(() => {
         const loadImages = async () => {
             if (recipes.length > 0 && token) {
-                    recipes.forEach(async (recipe) => {
-                        if (!recipe.imageUrl) {
-                            try{
-                                const imageUrl = await createImage(recipe.id);
-                                setRecipes(prev => prev.map(r => 
-                                    r.id === recipe.id ? {...r, imageUrl} : r
-                                ));
-                            }catch(error) {
-                                console.error(`Failed to generate image for recipe {recipe.id}`)
-                                setRecipes(prev => prev.map(r => 
-                                    r.id === recipe.id ? { ...r, imageUrl: null } : r
-                                ));
-                            }
+                recipes.forEach(async (recipe) => {
+                    if (!recipe.imageUrl) {
+                        try {
+                            const imageUrl = await createImage(recipe.id);
+                            setRecipes(prev => prev.map(r => 
+                                r.id === recipe.id ? {...r, imageUrl} : r
+                            ));
+                        } catch (error) {
+                            console.error(`Failed to generate image for recipe ${recipe.id}`);
+                            setRecipes(prev => prev.map(r => 
+                                r.id === recipe.id ? { ...r, imageUrl: null } : r
+                            ));
                         }
                     }
-                );
-                setRecipes(updatedRecipes);
+                });
             }
         };
 
@@ -132,7 +131,14 @@ async function fetchRecipes() {
     }
 
     return (
+        <motion.div
+        initial = {{ opacity : 0 }}
+        animate = {{ opacity: 1 }}
+        exit= {{ opacity : 0}}
+        transition={{duration : 1.3}}
         
+        
+        >
         <div className="saved-recipes-container">
             <div className='saved-recipes-header'>
             <h1>Saved Recipes</h1>
@@ -146,5 +152,6 @@ async function fetchRecipes() {
             </div>
             <Link to = '/main' className = 'generate-more-recipes'>Generate more recipes</Link>
         </div>
+        </motion.div>
     );
 }
