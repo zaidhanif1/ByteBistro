@@ -37,20 +37,10 @@ async function fetchRecipes() {
 }
     const createImage = async (recipeId) => {
         try {
-            const response = await fetch('/api/generate-image', {
+            const data = await apiCall('/generate-image', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
                 body: JSON.stringify({ recipe_id: recipeId }),
             });
-            
-            if (!response.ok) {
-                throw new Error(`Image generation failed: ${response.status}`);
-            }
-            
-            const data = await response.json();
             return data.imageUrl;
         } catch (error) {
             console.error('Error:', error);
@@ -101,7 +91,7 @@ async function fetchRecipes() {
                 >
                     ✕
                 </button>
-                {recipe.imageUrl ? <img src={recipe.imageUrl} className = 'recipe-img' alt={recipe.title}/> : <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center' }}>Generating image...<span className='loader'></span></p> }
+                {recipe.imageUrl ? <img src={recipe.imageUrl} className = 'recipe-img' alt={recipe.title}/> : <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', gap: '1rem' }}>Generating image...<span className='loader'></span></p> }
                 <h3>{recipe.title}</h3>
             </div>
         )
