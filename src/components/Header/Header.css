@@ -45,8 +45,8 @@ img
 .recipe-hrefs
 {
     display: flex;
-    text-align: center;
     align-items: center;
+    text-align: center;
 }
 .recipe-hrefs a
 {
@@ -205,7 +205,7 @@ img
     border-radius: 5px;
     z-index: 5;
     padding: .2rem;
-    text-align: left;
+    
   }
   .recipe-hrefs.open {
     display: flex;
@@ -214,7 +214,6 @@ img
   .recipe-hrefs a {
     margin: 1rem 2rem;
     font-size: .5rem;
-    text-align: left;
     animation: fadeIn 0.3s ease
   }
   .header {

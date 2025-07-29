@@ -1,20 +1,21 @@
 import chef from "../../assets/ByteBistro.png"
 import './Header.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { logout } from '../../utils/api'
 
 export default function Header({toggleTheme, isChecked})
 {
     const [menuOpen, setMenuOpen] = useState(false);
-    const currentUrl = window.location.href;
-    console.log(currentUrl)
+    const navigate = useNavigate();
+
 
     
 
     return(
     <header className="header">
-      <Link to='/' style={{ textDecoration: 'none', color: 'inherit'}} className="logo-link">
-        <div className="logo-header-div">
+      <Link to={localStorage.getItem('token') ? '/main' : '/'} style={{ textDecoration: 'none', color: 'inherit'}} className="logo-link">
+        <div className="logo-header-div"> 
         <img src={chef} className = "bytebistro-logo"alt="AI Robot Image" />
         <h1>ByteBistro</h1>
         </div>  
@@ -40,8 +41,15 @@ export default function Header({toggleTheme, isChecked})
     </button>
     {/* Navigation links */}
     <nav className={`recipe-hrefs${menuOpen ? ' open' : ''}`}>
-      <Link to= '/savedrecipes' onClick={() => setMenuOpen(false)}>Saved Recipes</Link>
+      <Link to= {localStorage.getItem('token') ? '/savedrecipes' : '/login'} onClick={() => setMenuOpen(false)}>Saved Recipes</Link>
       <Link to = '/main' onClick={() => setMenuOpen(false)}>Generate a recipe</Link>
+      {localStorage.getItem('token') 
+      ?
+      <Link to = '/login' onClick={() => {logout(); setMenuOpen(false)}}>Logout</Link> 
+      :
+      <Link to = '/login' onClick={() => setMenuOpen(false)}>Login</Link>}
+      
+
       <a href="#" onClick={e => e.preventDefault()}>My Profile</a>
     </nav>
     </div>

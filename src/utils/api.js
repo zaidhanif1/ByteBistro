@@ -9,7 +9,7 @@ export const apiCall = async (endpoint, options = {}) => {
     'Content-Type': 'application/json',
   };
 
-  // Add Authorization header if token exists
+
   if (token) {
     defaultHeaders['Authorization'] = `Bearer ${token}`;
   }
@@ -35,5 +35,4 @@ export const apiCall = async (endpoint, options = {}) => {
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('userId');
-  window.location.href = '/login';
 }; 

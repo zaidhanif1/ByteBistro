@@ -9,6 +9,8 @@ const app = express()
 const PORT = process.env.PORT || 8000
 app.use(express.json())
 app.use(express.static('public'));
+
+
 const allowed = process.env.ALLOWED_ORIGINS.split(',').map(wesbite => wesbite.trim())
 app.use(cors({
       origin: (origin, callBack) => {

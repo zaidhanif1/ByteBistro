@@ -25,12 +25,12 @@ export default function Login() {
         method: 'POST',
         body: JSON.stringify({email: logEmail, password: logPass})
       });
+      console.log(data)
       
       form.reset()
       setLogEmail('')
       setLogPass('')
 
-      // Store the JWT token in localStorage
       if (data.token) {
         localStorage.setItem('token', data.token)
         localStorage.setItem('userId', data.userId)

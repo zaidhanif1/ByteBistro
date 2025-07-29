@@ -4,12 +4,12 @@ import jwt from 'jsonwebtoken'
 
 export const login = async (req, res) => {
   const {email, password} = req.body
-
+  console.log(req.body)
   if (!email || !password) {
     return res.status(400).json({ error: "Missing email or password" });
   }
   
-  // Check if JWT_SECRET is configured
+  
   if (!process.env.JWT_SECRET) {
     console.error('JWT_SECRET environment variable is not set');
     return res.status(500).json({ error: 'Server configuration error' });
