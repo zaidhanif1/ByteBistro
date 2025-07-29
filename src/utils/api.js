@@ -30,6 +30,7 @@ export const apiCall = async (endpoint, options = {}) => {
   }
   
   return response.json();
+
 };
 
 export const logout = () => {

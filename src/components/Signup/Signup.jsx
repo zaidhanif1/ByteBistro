@@ -41,7 +41,7 @@ export default function Signup()
             }, 1700)
 
         } catch (error) {
-            if (error.message.includes('409')) {
+            if (error.message === 'Email already in use') {
                 toast.error('Email already in use, try logging in or using another email');
             } else {
                 toast.error('Network error. Please check your connection and try again.');
