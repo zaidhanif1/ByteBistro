@@ -59,11 +59,29 @@ export const generateAndSaveImage = async (req, res) => {
 
         const imageBuffer = Buffer.from(hfResponse.data);
         const filename = `recipe_${recipe_id}_${Date.now()}.png`;
-        const filePath = path.join(process.cwd(), 'public', 'generated-images', filename)
-
+        
+        // Option A: Save to file system (current approach)
+        const imageDir = path.join(process.cwd(), 'public', 'generated-images');
+        try {
+            await fs.mkdir(imageDir, { recursive: true });
+        } catch (dirError) {
+            console.error('Directory creation error:', dirError);
+        }
+        
+        const filePath = path.join(imageDir, filename);
         await fs.writeFile(filePath, imageBuffer);
+        console.log('File written to:', filePath);
+        
+        // Check if file actually exists
+        try {
+            await fs.access(filePath);
+            console.log('File exists and is accessible');
+        } catch (accessError) {
+            console.error('File access error:', accessError);
+        }
+        
         const imageUrl = `/generated-images/${filename}`;
-        console.log(imageUrl)
+        console.log('Image URL:', imageUrl);
 
         await pool.query(
             `INSERT INTO saved_images (recipe_id, image_url) VALUES ($1, $2)`,
