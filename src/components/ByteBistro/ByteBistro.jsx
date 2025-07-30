@@ -6,6 +6,7 @@ import { apiCall } from '../../utils/api.js';
 function parseRecipeMarkdown(markdown) {
     
     const lines = markdown.split('\n');
+    console.log(lines)
     let title = '';
     let ingredients = [];
     let instructions = '';

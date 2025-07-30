@@ -22,8 +22,6 @@ export default function Signup()
                 method: 'POST',
                 body: JSON.stringify({email: trimmedEmail, password: trimmedPassword})         
             });
-            
-            
             if (data.token) {
               localStorage.setItem('token', data.token)
               localStorage.setItem('userId', data.userId)
@@ -32,10 +30,10 @@ export default function Signup()
             toast.success('Successfully signed up! Redirecting...', {
               autoClose: 1500
             });
+
             form.reset();
             setEmail('');
             setPassword('');
-            
             setTimeout(() => {
               navigate('/main')
             }, 1700)

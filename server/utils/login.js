@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 
 export const login = async (req, res) => {
   const {email, password} = req.body
-  console.log(req.body)
+  
   if (!email || !password) {
     return res.status(400).json({ error: "Missing email or password" });
   }
@@ -21,14 +21,12 @@ export const login = async (req, res) => {
       [email]
     )
     const user = result.rows[0];
-    console.log(user)
 
     if(!user || !(await bcrypt.compare(password, user.password_hash)))
     {
       return res.status(400).json({error : 'Invalid email or password'})
     }
 
-    // Create JWT token for successful login
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: '7d',
     });

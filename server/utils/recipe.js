@@ -19,23 +19,17 @@ and concisely in markdown format. `
 
 
 export const recipe = async (req, res) => {
-    const {ingredients} = req.body
-    if (!Array.isArray(ingredients) || ingredients.length === 0)
-    {
-        return res.status(400).json({error: "No ingredients provided"})
-    }
-
-
+    const {ingredients} = req.body;
     try {
-        const model = genAI.getGenerativeModel({model : 'gemini-1.5-flash'})
-        const prompt = `${SYSTEM_PROMPT}\n Create a recipe using : ${ingredients.join(',')}`
-        const result = await model.generateContent(prompt)
-        const text = result.response.text()
-        res.json({ recipe: text.trim()})  
+        const model = genAI.getGenerativeModel({model : 'gemini-2.0-flash'});
+        const prompt = `${SYSTEM_PROMPT}\n Create a recipe using : ${ingredients.join(',')}`;
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        res.json({ recipe: text.trim()});  
     }
     catch (error)
     {
-        console.error(error)
-        res.status(500).json({error: error.message})
+        console.error(error);
+        res.status(500).json({error: error.message});
     }
 }
