@@ -33,7 +33,11 @@ export const getSavedRecipes = async (req, res) => {
     }
     try {
         const result = await pool.query(
-            `SELECT id, title, ingredients, content, created_at FROM recipes WHERE user_id = $1 ORDER BY created_at DESC`,
+            `SELECT r.id, r.title, r.ingredients, r.content, r.created_at, si.image_url as imageUrl 
+             FROM recipes r 
+             LEFT JOIN saved_images si ON r.id = si.recipe_id 
+             WHERE r.user_id = $1 
+             ORDER BY r.created_at DESC`,
             [userId]
         );
         res.status(200).json({ recipes: result.rows });

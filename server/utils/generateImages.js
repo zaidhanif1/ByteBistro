@@ -62,7 +62,8 @@ export const generateAndSaveImage = async (req, res) => {
         const filePath = path.join(process.cwd(), 'public', 'generated-images', filename)
 
         await fs.writeFile(filePath, imageBuffer);
-        const imageUrl = `generated-images/${filename}`;
+        const imageUrl = `/generated-images/${filename}`;
+        console.log(imageUrl)
 
         await pool.query(
             `INSERT INTO saved_images (recipe_id, image_url) VALUES ($1, $2)`,
@@ -87,7 +88,9 @@ export const generateAndSaveImage = async (req, res) => {
         res.status(500).json({ error: 'Failed to generate image', details: error.message });
     }
 };
+
 //end post ----------------------------------------------------------------------------------------------
+
 export const deleteRecipeImages = async (req, res) => {
     try {
         const { recipe_id } = req.params;
