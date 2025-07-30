@@ -90,7 +90,21 @@ async function fetchRecipes() {
                 >
                     ✕
                 </button>
-                {recipe.imageUrl ? <img src={recipe.imageUrl} className = 'recipe-img' alt={recipe.title}/> : <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', gap: '1rem' }}>Generating image...<span className='loader'></span></p> }
+                {recipe.imageUrl ? (
+                    <img 
+                        src={`${import.meta.env.MODE === 'development' ? 'http://localhost:8000' : 'https://bytebistro-13ya.onrender.com'}${recipe.imageUrl}`} 
+                        className='recipe-img' 
+                        alt={recipe.title}
+                        onError={(e) => {
+                            console.error('Image failed to load:', recipe.imageUrl);
+                            e.target.style.display = 'none';
+                        }}
+                    />
+                ) : (
+                    <p style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem', gap: '1rem' }}>
+                        Generating image...<span className='loader'></span>
+                    </p>
+                )}
                 <h3>{recipe.title}</h3>
             </div>
         )
