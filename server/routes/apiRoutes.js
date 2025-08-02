@@ -16,3 +16,4 @@ apiRouter.get('/saved-recipes', authenticateToken, getSavedRecipes)
 apiRouter.delete('/saved-recipes/:id', authenticateToken, deleteSavedRecipe);
 apiRouter.post('/generate-image', generateAndSaveImage)
 apiRouter.delete('/images/:recipe_id', deleteRecipeImages)
+
