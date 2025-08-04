@@ -22,7 +22,7 @@ export const apiCall = async (endpoint, options = {}) => {
   };
 
   const response = await fetch(`${API_BASE}/api${endpoint}`, config);
-  console.log(response)
+  
   
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));

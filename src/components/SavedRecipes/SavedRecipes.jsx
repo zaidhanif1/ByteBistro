@@ -5,73 +5,77 @@ import ReactMarkdown from 'react-markdown';
 import Cooking from '../../assets/orange-cooking.png'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import ByteBistro from '../ByteBistro/ByteBistro'
 
 export default function SavedRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-    const [token, setToken] = useState(null);
+
+
+
+//--------- load recipes from DB ---------
+    async function fetchRecipes() {
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await apiCall('/saved-recipes', { method: 'GET' });
+            setRecipes(data.recipes );
+        } catch (err) {
+            setError(err.message || 'Failed to fetch saved recipes');
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         fetchRecipes();
     }, []);
+    console.log(recipes)
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        setToken(storedToken);
-    }, []);
 
-    
-// functions ---------------------------------------------------------------------------------------------
-async function fetchRecipes() {
-    setLoading(true);
-    setError(null);
-    try {
-        const data = await apiCall('/saved-recipes', { method: 'GET' });
-        setRecipes(data.recipes || []);
-    } catch (err) {
-        setError(err.message || 'Failed to fetch saved recipes');
-    } finally {
-        setLoading(false);
-    }
-}
-    const createImage = async (recipeId) => {
-        try {
-            const data = await apiCall('/generate-image', {
-                method: 'POST',
-                body: JSON.stringify({ recipe_id: recipeId }),
-            });
-            return data.imageUrl;
-        } catch (error) {
-            console.error('Error:', error);
-            throw error;
-        }
-    };
-
-    useEffect(() => {
-        const loadImages = async () => {
-            if (recipes.length > 0 && token) {
-                recipes.forEach(async (recipe) => {
-                    if (!recipe.imageUrl) {
-                        try {
-                            const imageUrl = await createImage(recipe.id);
-                            setRecipes(prev => prev.map(r => 
-                                r.id === recipe.id ? {...r, imageUrl} : r
-                            ));
-                        } catch (error) {
-                            console.error(`Failed to generate image for recipe ${recipe.id}`);
-                            setRecipes(prev => prev.map(r => 
-                                r.id === recipe.id ? { ...r, imageUrl: null } : r
-                            ));
-                        }
-                    }
-                });
+               useEffect(() => {
+        const generateImages = async () => {
+            const needToGen = recipes.filter(recipe => !recipe.imageurl);
+                console.log('Recipes needing images:', needToGen.length);
+            
+            if (needToGen.length === 0) return;
+            
+            for (const recipe of needToGen) {
+                try {
+                    const data = await apiCall('/generate-image', {
+                        method: 'POST',
+                        body: JSON.stringify({ recipe_id: recipe.id })
+                    });
+                    
+                } catch (error) {
+                    console.error('Failed to generate image for recipe:', recipe.id, error);
+                }
             }
         };
+        
+        if (recipes.length > 0) {
+            generateImages();
+        }
+    }, [recipes.length]);
 
-        loadImages();
-    }, [recipes.length > 0 && token ? recipes.map(r => r.id).join(',') : '', token]);
+
+
+
+//--------- delete recipe ---------
+    async function handleDelete(recipeid) {
+        try {
+            await apiCall(`/images/${recipeid}`, { method: 'DELETE' });
+            await apiCall(`/saved-recipes/${recipeid}`, { method: 'DELETE' });
+            
+            setSelectedRecipe(null);
+            setRecipes(recipes.filter(recipe => recipe && recipe.id !== recipeid));
+        } catch (err) {
+            alert(`Failed to delete recipe: ${err.message}`);
+        }
+    }
+
 
     function RecipeCard({ recipe }) {
         const handleDeleteClick = (e) => {
@@ -90,13 +94,12 @@ async function fetchRecipes() {
                 >
                     ✕
                 </button>
-                {recipe.imageUrl ? (
+                {recipe.imageurl ? (
                     <img 
-                        src={`${import.meta.env.MODE === 'development' ? 'http://localhost:8000' : 'https://bytebistro-13ya.onrender.com'}${recipe.imageUrl}`} 
+                        src={recipe.imageurl} 
                         className='recipe-img' 
                         alt={recipe.title}
                         onError={(e) => {
-                            console.error('Image failed to load:', recipe.imageUrl);
                             e.target.style.display = 'none';
                         }}
                     />
@@ -110,27 +113,7 @@ async function fetchRecipes() {
         )
     }
 
-    async function handleDelete(recipeid) {
-        try {
-         
-            try {
-                await apiCall(`/images/${recipeid}`, { method: 'DELETE' });
-                console.log('Images deleted successfully');
-            } catch (imageError) {
-                console.warn('Failed to delete images:', imageError.message);
-            }
-            
-            const response = await apiCall(`/saved-recipes/${recipeid}`, { method: 'DELETE' });
-            console.log('Recipe deleted successfully');
-            
-            
-            setSelectedRecipe(null);
-            setRecipes(recipes => recipes.filter(r => r && r.id !== recipeid));
-        } catch (err) {
-            console.error('Delete error:', err);
-            alert(`Failed to delete recipe: ${err.message}`);
-        }
-    }
+
 
     if (loading) return <div className="loading-div"><span className='loader' ></span></div>;
     if (error) return <div className="saved-recipe-display"><p className="error-message">{error}</p></div>;
@@ -150,8 +133,6 @@ async function fetchRecipes() {
         animate = {{ opacity: 1 }}
         exit= {{ opacity : 0}}
         transition={{duration : 1.3}}
-        
-        
         >
         <div className="saved-recipes-container">
             <div className='saved-recipes-header'>
@@ -164,6 +145,11 @@ async function fetchRecipes() {
                 <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
             </div>
+            <ByteBistro
+
+            savedRecipes = {recipes}
+            />
+            
             <Link to = '/main' className = 'generate-more-recipes'>Generate more recipes</Link>
         </div>
         </motion.div>

@@ -13,19 +13,38 @@ function parseTitle(markdown) {
     return 'Untitled Recipe'
 }
 
+
 export default function ByteBistro(props) {
     const [saving, setSaving] = useState(false);
     const [saveMsg, setSaveMsg] = useState('');
 
+    const generateImages = async (newRecipeId) => {
+        try {
+            console.log('Generating image for newly saved recipe:', newRecipeId);
+            const data = await apiCall('/generate-image', {
+                method: 'POST',
+                body: JSON.stringify({ recipe_id: newRecipeId })
+            });
+            console.log('Image generated successfully for recipe:', newRecipeId);
+        } catch (error) {
+            console.error('Failed to generate image for recipe:', newRecipeId, error);
+        }
+    };
+    
     async function handleSave() {
         setSaving(true);
         setSaveMsg('');
         try {
             const title = parseTitle(props.recipe);
-            await apiCall('/saved-recipe', {
+            const response = await apiCall('/saved-recipe', {
                 method: 'POST',
                 body: JSON.stringify({ title, content: props.recipe })
             });
+            
+            if (response.recipeId) {
+                generateImages(response.recipeId);
+            }
+            
             setSaveMsg('Recipe saved!');
         } catch (err) {
             setSaveMsg('Failed to save recipe: ' + (err.message || 'Unknown error'));

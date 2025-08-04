@@ -33,9 +33,9 @@ export const getSavedRecipes = async (req, res) => {
     }
     try {
         const result = await pool.query(
-            `SELECT r.id, r.title, r.ingredients, r.content, r.created_at, si.image_url as imageUrl 
+            `SELECT r.id, r.title, r.content, r.created_at, savedImages.image_url as imageUrl 
              FROM recipes r 
-             LEFT JOIN saved_images si ON r.id = si.recipe_id 
+             LEFT JOIN saved_images savedImages ON r.id = savedImages.recipe_id 
              WHERE r.user_id = $1 
              ORDER BY r.created_at DESC`,
             [userId]
