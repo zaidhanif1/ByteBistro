@@ -3,16 +3,15 @@ const API_BASE = import.meta.env.MODE === 'development'
   : "https://bytebistro-l3ya.onrender.com";
 
 export const apiCall = async (endpoint, options = {}) => {
-  const token = localStorage.getItem('token');
-  
   const defaultHeaders = {
     'Content-Type': 'application/json',
   };
 
-
+  const token = localStorage.getItem('token');
   if (token) {
     defaultHeaders['Authorization'] = `Bearer ${token}`;
   }
+  
 
   const config = {
     ...options,
@@ -23,6 +22,7 @@ export const apiCall = async (endpoint, options = {}) => {
   };
 
   const response = await fetch(`${API_BASE}/api${endpoint}`, config);
+  console.log(response)
   
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));

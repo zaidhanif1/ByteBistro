@@ -1,10 +1,5 @@
 import { apiCall } from './utils/api.js'
 
-/**
- *
- * @param {string[]} ingredients
- * @returns {Promise<string>}
- */
 export async function getRecipeFromGemini(ingredients) {
   if (!ingredients.length) return "No ingredients provided.";
   

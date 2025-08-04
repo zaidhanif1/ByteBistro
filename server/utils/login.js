@@ -17,10 +17,11 @@ export const login = async (req, res) => {
   
   try {
     const result = await pool.query(
-      'SELECT * from users WHERE email = $1', 
+      'SELECT id, password_hash FROM users WHERE email = $1', 
       [email]
     )
     const user = result.rows[0];
+
 
     if(!user || !(await bcrypt.compare(password, user.password_hash)))
     {

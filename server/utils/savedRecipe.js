@@ -1,8 +1,8 @@
 import { pool } from '../config/database.js'
 
 export const savedRecipe = async (req, res) => {
-    const { title, ingredients, content } = req.body;
-    const userId = req.user?.id;
+    const { title, content } = req.body;
+    const userId = req.user.id;
 
     if(!userId){
         return res.status(401).json({ error : 'Unauthorized: User ID not found'})
@@ -10,9 +10,9 @@ export const savedRecipe = async (req, res) => {
 
     try {
         const result = await pool.query(
-            `INSERT INTO recipes (user_id, title, ingredients, content, created_at)
-            VALUES ($1, $2, $3, $4, NOW()) RETURNING id`,
-            [userId, title, ingredients, content]
+            `INSERT INTO recipes (user_id, title, content, created_at)
+            VALUES ($1, $2, $3, NOW()) RETURNING id`,
+            [userId, title, content]
         );
 
         res.status(201).json({ message : 'Recipe saved', recipeId: result.rows[0].id });

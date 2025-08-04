@@ -3,46 +3,14 @@ import ReactMarkdown from 'react-markdown';
 import './ByteBistro.css'
 import { apiCall } from '../../utils/api.js';
 
-function parseRecipeMarkdown(markdown) {
-    
+function parseTitle(markdown) {
     const lines = markdown.split('\n');
-    console.log(lines)
-    let title = '';
-    let ingredients = [];
-    let instructions = '';
-    let inIngredients = false;
-    let inInstructions = false;
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (i === 0 && line.startsWith('#')) {
-            title = line.replace(/^#+\s*/, '');
-            continue;
-        }
-        if (/ingredients[:]?/i.test(line)) {
-            inIngredients = true;
-            inInstructions = false;
-            continue;
-        }
-        if (/instructions[:]?/i.test(line)) {
-            inIngredients = false;
-            inInstructions = true;
-            continue;
-        }
-        if (inIngredients && (line.startsWith('-') || line.startsWith('*'))) {
-            ingredients.push(line.replace(/^[-*]\s*/, ''));
-        } else if (inInstructions) {
-            instructions += line + '\n';
-        }
-    }
+    const firstLine = lines[0]?.trim();
 
-    if (!ingredients.length && lines.length > 1) {
-        instructions = lines.slice(1).join('\n');
+    if(firstLine?.startsWith('#')){
+         return firstLine.substring(firstLine.indexOf(' ') + 1).trim();
     }
-    return {
-        title: title || 'Untitled Recipe',
-        ingredients,
-        instructions: instructions.trim() || markdown.trim(),
-    };
+    return 'Untitled Recipe'
 }
 
 export default function ByteBistro(props) {
@@ -53,10 +21,10 @@ export default function ByteBistro(props) {
         setSaving(true);
         setSaveMsg('');
         try {
-            const { title, ingredients } = parseRecipeMarkdown(props.recipe);
+            const title = parseTitle(props.recipe);
             await apiCall('/saved-recipe', {
                 method: 'POST',
-                body: JSON.stringify({ title, ingredients, content: props.recipe })
+                body: JSON.stringify({ title, content: props.recipe })
             });
             setSaveMsg('Recipe saved!');
         } catch (err) {
@@ -72,7 +40,12 @@ export default function ByteBistro(props) {
                 <h1 className='byte-bistro-h1'>ByteBistro Recommends:</h1>
                 <ReactMarkdown>{props.recipe}</ReactMarkdown>
                 <button className="save-recipe-btn" onClick={handleSave} disabled={saving} >
-                    {saving ? 'Saving...' : 'Save Recipe'}
+                    {saving ? (
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            Saving...
+                            <span className='loader' style={{width: '20px', height: '20px', marginLeft: '8px'}}></span>
+                        </div>
+                    ) : 'Save Recipe'}
                 </button>
                 {saveMsg && <p style={{marginTop: '2rem', textAlign: 'center'}}>{saveMsg}</p>}
             </div>
