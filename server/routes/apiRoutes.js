@@ -3,7 +3,7 @@ import { signup } from '../utils/signup.js'
 import { recipe } from '../utils/recipe.js'
 import { savedRecipe, getSavedRecipes, deleteSavedRecipe } from '../utils/savedRecipe.js'
 import { authenticateToken } from '../utils/auth.js'
-import { generateAndSaveImage, deleteRecipeImages } from '../utils/generateImages.js'
+import { generateAndSaveImage } from '../utils/generateImages.js'
 import express from 'express'
 
 export const apiRouter = express.Router()
@@ -15,5 +15,5 @@ apiRouter.post('/saved-recipe', authenticateToken, savedRecipe)
 apiRouter.get('/saved-recipes', authenticateToken, getSavedRecipes)
 apiRouter.delete('/saved-recipes/:id', authenticateToken, deleteSavedRecipe);
 apiRouter.post('/generate-image', generateAndSaveImage)
-apiRouter.delete('/images/:recipe_id', deleteRecipeImages)
+
 

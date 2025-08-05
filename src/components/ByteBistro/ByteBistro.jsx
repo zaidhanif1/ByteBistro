@@ -40,7 +40,8 @@ export default function ByteBistro(props) {
                 method: 'POST',
                 body: JSON.stringify({ title, content: props.recipe })
             });
-            
+            //savedrecipes endpoint sends back the id of the recipe that was just saved
+            //if this value is truthy and the post request was successful, we will call the generateImages function with the new id
             if (response.recipeId) {
                 generateImages(response.recipeId);
             }

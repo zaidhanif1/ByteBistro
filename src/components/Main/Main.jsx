@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect} from 'react'
 import './Main.css'
 import ByteBistro from '../ByteBistro/ByteBistro'
 import IngredientsList from '../IngredientsList/IngredientsList'
@@ -6,9 +6,9 @@ import { getRecipeFromGemini} from '../../ai'
 import byteThinking from '../../assets/bytethinking.png'
 export default function Main()
 {
-    const [ingredients, setIngredients] = React.useState([])
-    const [recipe, setRecipe] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
+    const [ingredients, setIngredients] = useState([])
+    const [recipe, setRecipe] = useState("");
+    const [loading, setLoading] = useState(false);
  
 
 
@@ -23,9 +23,8 @@ async function getRecipe(e)
     setLoading(false);
 }
 
-React.useEffect(() => {
-    if (recipe)
-    {
+useEffect(() => {
+    if (recipe){
         const recipeContainer = document.getElementById('suggested-recipe-container')
         recipeContainer.scrollIntoView({behavior: 'smooth'})
     }

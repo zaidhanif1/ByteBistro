@@ -33,11 +33,11 @@ export const getSavedRecipes = async (req, res) => {
     }
     try {
         const result = await pool.query(
-            `SELECT r.id, r.title, r.content, r.created_at, savedImages.image_url as imageUrl 
-             FROM recipes r 
-             LEFT JOIN saved_images savedImages ON r.id = savedImages.recipe_id 
-             WHERE r.user_id = $1 
-             ORDER BY r.created_at DESC`,
+            `SELECT r.id, r.title, r.content, r.created_at, saved_images.image_url as imageUrl 
+            FROM recipes r
+            LEFT JOIN saved_images ON r.id = saved_images.recipe_id
+            WHERE r.user_id = $1
+            ORDER BY r.created_at DESC`,
             [userId]
         );
         res.status(200).json({ recipes: result.rows });
@@ -50,22 +50,29 @@ export const getSavedRecipes = async (req, res) => {
 //end get ----------------------------------------------------------------------------------
 
 export const deleteSavedRecipe = async (req,res) => {
-    const userId = req.user?.id;
+    const userId = req.user.id;
     const recipeId = req.params.id;
+    
     
     if(!userId) {
         return res.status(401).json({ error : "Unauthorized"});
     }
 
     try {
-        // Delete the recipe (images should be deleted separately via the images endpoint)
+        const deleteResult = await pool.query(
+            `DELETE FROM saved_images WHERE recipe_id = $1`,
+            [recipeId]
+        )
         const result = await pool.query(
             'DELETE FROM recipes WHERE id = $1 AND user_id = $2 RETURNING id',
             [recipeId, userId]
         );
 
-        if(result.rowCount === 0) {
-            return res.status(404).json({ error: "Recipe not found or not yours"});
+        if(!result.rowCount) {
+            return res.status(404).json({ error: "Recipe not found"});
+        }
+        if(!deleteResult.rowCount) {
+            return res.status(404).json({error: 'No image found'})
         }
         
         res.status(200).json({ 
