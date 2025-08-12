@@ -1,6 +1,6 @@
 import './SavedRecipes.css'
 import React, { useEffect, useState } from 'react';
-import { apiCall } from '../../utils/api.js';
+import { apiCall, API_BASE } from '../../utils/api.js';
 import ReactMarkdown from 'react-markdown';
 import Cooking from '../../assets/orange-cooking.png'
 import { Link } from 'react-router-dom'
@@ -87,9 +87,9 @@ export default function SavedRecipes() {
                                 ✕
                             </button>
 
-                            {currentRecipe.imageurl ? (
+                            {currentRecipe.imageUrl ? (
                                 <img 
-                                    src={currentRecipe.imageurl} 
+                                    src={`${API_BASE}${currentRecipe.imageUrl}`} 
                                     className='recipe-img' 
                                     alt={currentRecipe.title}
                                     onError={(e) => {

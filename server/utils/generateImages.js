@@ -15,14 +15,6 @@ export const generateAndSaveImage = async (req, res) => {
             return res.status(400).json({error : "Recipe ID required"});
         }
 
-        const existing = await pool.query(
-            'SELECT image_url FROM saved_images WHERE recipe_id = $1',
-            [recipe_id]
-        );
-        
-        if (existing.rows.length > 0) {
-            return res.json({ imageUrl: existing.rows[0].image_url});
-        }
         const recipeQuery = await pool.query(
             'SELECT title FROM recipes WHERE id = $1',
             [recipe_id]
@@ -38,7 +30,6 @@ export const generateAndSaveImage = async (req, res) => {
 
 
         const cartoonPrompt = `Cartoon-style food illustration of "${title}".`
-        console.log(cartoonPrompt)
         
 
         const hfResponse = await axios.post(
@@ -58,7 +49,7 @@ export const generateAndSaveImage = async (req, res) => {
         );
 
         const imageBuffer = Buffer.from(hfResponse.data);
-        const filename = `recipe_${recipe_id}_${Date.now()}.png`;
+        const filename = `recipe_${recipe_id}_png`;
         
         // Option A: Save to file system (current approach)
         const imageDir = path.join(process.cwd(), 'public', 'generated-images');
