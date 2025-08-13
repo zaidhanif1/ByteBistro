@@ -1,6 +1,6 @@
 import './SavedRecipes.css'
 import React, { useEffect, useState } from 'react';
-import { apiCall, API_BASE } from '../../utils/api.js';
+import { apiCall } from '../../utils/api.js';
 import ReactMarkdown from 'react-markdown';
 import Cooking from '../../assets/orange-cooking.png'
 import { Link } from 'react-router-dom'
@@ -18,19 +18,20 @@ export default function SavedRecipes() {
     async function fetchRecipes() {
         try {
             const data = await apiCall('/saved-recipes', { method: 'GET' });
-            setRecipes(data.recipes );
+            setRecipes(data.recipes);
         } catch (err) {
             console.error(err || 'Failed to fetch saved recipes');
         } finally {
             setLoading(false);
         }
+        
     }
     useEffect(() => {
         fetchRecipes();
     }, [])
         
     
-
+   
 
 //--------- delete recipe function ---------
     async function handleDelete(recipe, userId) {
@@ -89,7 +90,7 @@ export default function SavedRecipes() {
 
                             {currentRecipe.imageUrl ? (
                                 <img 
-                                    src={`${API_BASE}${currentRecipe.imageUrl}`} 
+                                    src={currentRecipe.imageUrl} 
                                     className='recipe-img' 
                                     alt={currentRecipe.title}
                                     onError={(e) => {

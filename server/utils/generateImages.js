@@ -1,10 +1,15 @@
 import { pool } from '../config/database.js';
 import axios from 'axios';
-import dotenv from 'dotenv'
-import path from 'path';
-import fs from 'fs/promises';
+import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
+
+const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
+const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY
+);
 
 export const generateAndSaveImage = async (req, res) => {
     try {
@@ -13,6 +18,15 @@ export const generateAndSaveImage = async (req, res) => {
         if(!recipe_id) {
             console.log('ERROR: No recipe_id provided');
             return res.status(400).json({error : "Recipe ID required"});
+        }
+
+        const existing = await pool.query(
+            'SELECT image_url FROM saved_images WHERE recipe_id = $1',
+            [recipe_id]
+        );
+
+        if (existing.rows.length > 0) {
+            return res.json({ imageUrl: existing.rows[0].image_url });
         }
 
         const recipeQuery = await pool.query(
@@ -49,30 +63,25 @@ export const generateAndSaveImage = async (req, res) => {
         );
 
         const imageBuffer = Buffer.from(hfResponse.data);
-        const filename = `recipe_${recipe_id}_png`;
+        const filename = `recipe_${recipe_id}_${Date.now()}.png`;
+        const objectPath = `recipes/${recipe_id}/${filename}`;
         
-        // Option A: Save to file system (current approach)
-        const imageDir = path.join(process.cwd(), 'public', 'generated-images');
-        try {
-            await fs.mkdir(imageDir, { recursive: true });
-        } catch (dirError) {
-            console.error('Directory creation error:', dirError);
-        }
+        const { error: upErr } = await supabase
+        .storage
+        .from('generated-images')
+        .upload(objectPath, imageBuffer, {
+          contentType: 'image/png'
+        });
+
+        if (upErr) throw upErr;
         
-        const filePath = path.join(imageDir, filename);
-        await fs.writeFile(filePath, imageBuffer);
-        console.log('File written to:', filePath);
-        
-        // Check if file actually exists
-        try {
-            await fs.access(filePath);
-            console.log('File exists and is accessible');
-        } catch (accessError) {
-            console.error('File access error:', accessError);
-        }
-        
-        const imageUrl = `/generated-images/${filename}`;
-        console.log('Image URL:', imageUrl);
+        const { data: pub } = supabase
+        .storage
+        .from('generated-images')
+        .getPublicUrl(objectPath);
+
+        const imageUrl = pub.publicUrl;
+
 
         await pool.query(
             `INSERT INTO saved_images (recipe_id, image_url) VALUES ($1, $2)`,
