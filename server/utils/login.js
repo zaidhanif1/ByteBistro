@@ -37,7 +37,8 @@ export const login = async (req, res) => {
       userId: user.id,
       token: token
     })
-  } catch(error)
+  } 
+  catch(error)
   {
     console.error('Login error:', error);
     res.status(500).json({error: "Something went wrong, please try again."})
