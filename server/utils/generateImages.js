@@ -1,7 +1,7 @@
 import { pool } from '../config/database.js';
-import axios from 'axios';
 import dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
+import { InferenceClient } from '@huggingface/inference';
 
 dotenv.config();
 
@@ -10,6 +10,7 @@ const supabase = createClient(
     SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY
 );
+const hf = new InferenceClient(process.env.HF_API_KEY);
 
 export const generateAndSaveImage = async (req, res) => {
     try {
@@ -43,26 +44,20 @@ export const generateAndSaveImage = async (req, res) => {
         title = title.replace(/^ByteBistro[']s\s+/i, '');
 
 
-        const cartoonPrompt = `Cartoon-style food illustration of "${title}".`
-        
+        const cartoonPrompt = `Cartoon-style food illustration of "${title}".`;
 
-        const hfResponse = await axios.post(
-            'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-3-medium-diffusers',
-            {
-                inputs: cartoonPrompt
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer ${process.env.HF_API_KEY}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'image/png'
-                },
-                responseType: 'arraybuffer',
-                timeout: 30000 
+        const image = await hf.textToImage({
+            provider: 'auto',
+            model: 'black-forest-labs/FLUX.1-schnell',
+            inputs: cartoonPrompt,
+            parameters: {
+                num_inference_steps: 4,
+                width: 1024,
+                height: 1024
             }
-        );
+        });
 
-        const imageBuffer = Buffer.from(hfResponse.data);
+        const imageBuffer = Buffer.from(await image.arrayBuffer());
         const filename = `recipe_${recipe_id}_${Date.now()}.png`;
         const objectPath = `recipes/${recipe_id}/${filename}`;
         
