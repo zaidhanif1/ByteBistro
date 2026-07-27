@@ -4,13 +4,8 @@ import './ByteBistro.css'
 import { apiCall } from '../../utils/api.js';
 
 function parseTitle(markdown) {
-    const lines = markdown.split('\n');
-    const firstLine = lines[0]?.trim();
-
-    if(firstLine?.startsWith('#')){
-         return firstLine.substring(firstLine.indexOf(' ') + 1).trim();
-    }
-    return 'Untitled Recipe'
+    const match = markdown?.match(/^#\s+(.+)$/m);
+    return match?.[1]?.replace(/\*\*|__/g, '').trim() || 'Untitled Recipe';
 }
 
 
